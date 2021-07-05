@@ -26,12 +26,11 @@ const Login = (props) => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     if (email && password) {
-      console.log(email,'@',password);
-      dispatch(login({email:email.value, password:password.value}));
+      dispatch(login({ email: email.value, password: password.value }));
     }
   };
   const { error, inProgress } = props.auth;
-  
+  console.log('auth',props.auth);
   return (
     <div className="form-container">
       <form className="login-form" onSubmit={(e) => handleFormSubmit(e)}>
@@ -39,7 +38,7 @@ const Login = (props) => {
         <div>
           <h2>Welcome Back</h2>
         </div>
-        {error && <div className="alert error-dialog">{error}</div>}
+        {error && <div className="alert error-dailog">{error}</div>}
         <div className="field">
           <i class="far fa-envelope"></i>
           <input type="email" placeholder="Email" required {...email} />
@@ -54,16 +53,14 @@ const Login = (props) => {
           />
         </div>
         <div className="form-button">
-          <button type="Submit" disabled={inProgress}>
-            Log In
-          </button>
+          {inProgress?<button type="Submit" disabled={inProgress}>Logging In...</button>:<button type="Submit" disabled={inProgress}>Log In</button>}
         </div>
       </form>
       <div className="login-form">
         <div>
           Don't have an acccout?{" "}
           <Link className="signup" to="/signup">
-            SignUp
+            Sign Up
           </Link>
         </div>
       </div>

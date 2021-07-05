@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { useDispatch, connect } from "react-redux";
+import { signup } from "../actions/auth";
+
 import "../assets/css/Login-Signup.css";
 
 function useFormInput(initialValue) {
@@ -14,20 +17,33 @@ function useFormInput(initialValue) {
   };
 }
 
-function handleFormSubmit(e){
-  e.preventDefault();
-}
-
-function Signup() {
+const Signup = (props) => {
   const name = useFormInput("");
   const email = useFormInput("");
   const password = useFormInput("");
   const confirmPassword = useFormInput("");
+  const dispatch = useDispatch();
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    if (name && email && password && confirmPassword) {
+      dispatch(
+        signup({
+          name: name.value,
+          email: email.value,
+          password: password.value,
+          confirmPassword: confirmPassword.value,
+        })
+      );
+    }
+  };
 
+  const { error, inProgress} = props.auth;
+  
   return (
     <div className="form-container">
-      <form className="login-form">
+      <form className="login-form" onSubmit={(e) => handleFormSubmit(e)}>
         <div className="form-logo"></div>
+        {error && <div className="alert error-dailog">{error}</div>}
         <div className="field">
           <i class="far fa-user"></i>
           <input type="text" placeholder="Username" required {...name} />
@@ -49,18 +65,32 @@ function Signup() {
         <div className="field">
           <i class="fas fa-unlock-alt"></i>
           <input
-            type="confirmPassword"
+            type="password"
             placeholder="Confirm Password"
             required
             {...confirmPassword}
           />
         </div>
         <div className="form-button">
-          <button onClick={handleFormSubmit}>Sign Up</button>
+          {inProgress ? (
+            <button type="submit" disabled={inProgress}>
+              Signing Up...
+            </button>
+          ) : (
+            <button type="submit" disabled={inProgress}>
+              Sign Up
+            </button>
+          )}
         </div>
       </form>
     </div>
   );
+};
+
+function mapStateToProps(state) {
+  return {
+    auth: state.auth,
+  };
 }
 
-export default Signup;
+export default connect(mapStateToProps)(Signup);

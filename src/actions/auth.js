@@ -6,6 +6,8 @@ import {
   SIGNUP_START,
   SIGNUP_SUCCESS,
   SIGNUP_FAILED,
+  AUTHENTICATE_USER,
+  LOGOUT,
 } from "./actionTypes";
 import { getFormBody } from "../helpers/utils";
 
@@ -47,6 +49,7 @@ export function login(email, password) {
       .then((data) => {
         if (data.success) {
           //dispatch action to save user
+          localStorage.setItem('token',data.data.token);
           dispatch(loginSuccess(data.data.user));
           return;
         }
@@ -102,5 +105,18 @@ export function signup(name,email,password,confirmPassword) {
       }
       dispatch(signupFailed(data.error));
     })
+  };
+}
+
+export function authenticateUser (user){
+  return {
+    type:AUTHENTICATE_USER,
+    user,
+  }
+}
+
+export function logoutUser(user){
+  return {
+    type:LOGOUT
   };
 }

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { login } from "../actions/auth";
 
 import "../assets/css/Login-Signup.css";
@@ -29,8 +29,11 @@ const Login = (props) => {
       dispatch(login({ email: email.value, password: password.value }));
     }
   };
-  const { error, inProgress } = props.auth;
-  console.log('auth',props.auth);
+  const { error, inProgress ,isLoggedIn } = props.auth;
+  if(isLoggedIn){
+    return <Redirect to='/home' />
+  }
+
   return (
     <div className="form-container">
       <form className="login-form" onSubmit={(e) => handleFormSubmit(e)}>

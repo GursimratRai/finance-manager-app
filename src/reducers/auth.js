@@ -4,7 +4,9 @@ import {
   LOGIN_START,
   SIGNUP_START,
   SIGNUP_SUCCESS,
-  SIGNUP_FAILED
+  SIGNUP_FAILED,
+  AUTHENTICATE_USER,
+  LOGOUT
 } from "../actions/actionTypes";
 
 const initilAuthState = {
@@ -52,6 +54,18 @@ export default function auth(state = initilAuthState, action) {
         inProgress: false,
         error: action.error,
       };
+    case AUTHENTICATE_USER:
+      return {
+        ...state,
+        isLoggedIn:true,
+        user:action.user
+      };
+    case LOGOUT:
+      return {
+        ...state,
+        isLoggedIn:false,
+        user:{}
+      }
     default:
       return state;
   }

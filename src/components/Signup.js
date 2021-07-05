@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 import { signup } from "../actions/auth";
 
 import "../assets/css/Login-Signup.css";
@@ -37,8 +38,10 @@ const Signup = (props) => {
     }
   };
 
-  const { error, inProgress} = props.auth;
-  
+  const { error, inProgress ,isLoggedIn} = props.auth;
+  if(isLoggedIn){
+    return <Redirect to='/home' />;
+  }
   return (
     <div className="form-container">
       <form className="login-form" onSubmit={(e) => handleFormSubmit(e)}>

@@ -1,9 +1,12 @@
 import React, { useState } from "react";
+import { connect, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { login } from "../actions/auth";
+
 import "../assets/css/Login-Signup.css";
 
 function useFormInput(initialValue) {
-  const [ value, setValue ] = useState("");
+  const [value, setValue] = useState("");
 
   function handleChange(e) {
     setValue(e.target.value);
@@ -15,17 +18,28 @@ function useFormInput(initialValue) {
   };
 }
 
-function Login() {
+const Login = (props) => {
   const email = useFormInput("");
   const password = useFormInput("");
+  const dispatch = useDispatch();
 
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    if (email && password) {
+      console.log(email,'@',password);
+      dispatch(login({email:email.value, password:password.value}));
+    }
+  };
+  const { error, inProgress } = props.auth;
+  
   return (
     <div className="form-container">
-      <form className="login-form">
+      <form className="login-form" onSubmit={(e) => handleFormSubmit(e)}>
         <div className="form-logo"></div>
         <div>
           <h2>Welcome Back</h2>
         </div>
+        {error && <div className="alert error-dialog">{error}</div>}
         <div className="field">
           <i class="far fa-envelope"></i>
           <input type="email" placeholder="Email" required {...email} />
@@ -40,7 +54,9 @@ function Login() {
           />
         </div>
         <div className="form-button">
-          <button>Log In</button>
+          <button type="Submit" disabled={inProgress}>
+            Log In
+          </button>
         </div>
       </form>
       <div className="login-form">
@@ -53,6 +69,12 @@ function Login() {
       </div>
     </div>
   );
+};
+
+function mapStateToProps(state) {
+  return {
+    auth: state.auth,
+  };
 }
 
-export default Login;
+export default connect(mapStateToProps)(Login);

@@ -77,3 +77,8 @@
 .field button:disabled {
   cursor: not-allowed;
 }
+
+.signup {
+  color: blue;
+  text-decoration: none;
+}

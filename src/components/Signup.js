@@ -48,16 +48,16 @@ const Signup = (props) => {
         <div className="form-logo"></div>
         {error && <div className="alert error-dailog">{error}</div>}
         <div className="field">
-          <i class="far fa-user"></i>
+          <i className="far fa-user"></i>
           <input type="text" placeholder="Username" required {...name} />
         </div>
 
         <div className="field">
-          <i class="far fa-envelope"></i>
+          <i className="far fa-envelope"></i>
           <input type="email" placeholder="Email" required {...email} />
         </div>
         <div className="field">
-          <i class="fas fa-unlock-alt"></i>
+          <i className="fas fa-unlock-alt"></i>
           <input
             type="password"
             placeholder="Password"
@@ -66,7 +66,7 @@ const Signup = (props) => {
           />
         </div>
         <div className="field">
-          <i class="fas fa-unlock-alt"></i>
+          <i className="fas fa-unlock-alt"></i>
           <input
             type="password"
             placeholder="Confirm Password"

@@ -7,7 +7,7 @@ const { Sider } = Layout;
 class SideMenu extends Component {
     
   state = {
-    collapsed: false,
+    collapsed: true,
   };
 
   toggle = () => {
@@ -17,6 +17,7 @@ class SideMenu extends Component {
   };
 
     render() {
+      const {onMenuSelect} = this.props;
         return (
         <Sider
           theme="light"
@@ -29,14 +30,14 @@ class SideMenu extends Component {
             <i className="fas fa-bars"></i>
           </div>
           <Menu mode="inline" defaultSelectedKeys={["1"]}>
-            <Menu.Item key="1" icon={<i className="far fa-calendar-alt"></i>}>
-              calender
+            <Menu.Item onClick={()=> onMenuSelect('1')} key="1" icon={<i className="far fa-calendar-alt"></i>}>
+              Transtions
             </Menu.Item>
-            <Menu.Item key="2" icon={<i className="fas fa-chart-pie"></i>}>
-              graph
+            <Menu.Item onClick={()=> onMenuSelect('2')} key="2" icon={<i className="far fa-chart-bar"></i>}>
+              Stats
             </Menu.Item>
-            <Menu.Item key="3" icon={<i className="fas fa-user"></i>}>
-              user
+            <Menu.Item onClick={()=> onMenuSelect('3')} key="3" icon={<i className="fas fa-cog"></i>}>
+              Settings
             </Menu.Item>
           </Menu>
         </Sider>

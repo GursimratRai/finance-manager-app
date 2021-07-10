@@ -1,29 +1,29 @@
-import { INCOME_START, INCOME_SUCCESS, INCOME_FAILED } from "../actions/actionTypes";
+import { EXPENSE_START, EXPENSE_SUCCESS, EXPENSE_FAILED } from "../actions/actionTypes";
 
-const initialIncomeState = {
-  income: {},
+const initialExpenseState = {
+  expense: {},
   error: null,
   inProgress: false,
   isSubmit : false
 };
 
-export default function income(state = initialIncomeState, action) {
+export default function expense(state = initialExpenseState, action) {
   switch (action.type) {
-    case INCOME_START:
+    case EXPENSE_START:
       return {
         ...state,
         inProgress: true,
         isSubmit : false
       };
-    case INCOME_SUCCESS:
+    case EXPENSE_SUCCESS:
       return {
         ...state,
-        income: action.income,
+        expense: action.expense,
         isSubmit : true,
         inProgress: false,
         error: action.error,
       };
-    case INCOME_FAILED:
+    case EXPENSE_FAILED:
       return {
         ...state,
         inProgress: false,

@@ -25,7 +25,7 @@ const Transaction = (props) => {
             <div className={`modal-form-option ${option==='2'?'active':''}`} onClick={() => changeOption("2")}>Expense</div>
           </div>
           {option === "1" && <IncomeForm onCancel={onCancel} onSubmit={onSubmit} date={date} />}
-          {option === "2" && <ExpenseForm date={date} />}
+          {option === "2" && <ExpenseForm onCancel={onCancel} onSubmit={onSubmit} date={date} />}
         </Modal>
       
     </div>

@@ -1,0 +1,96 @@
+.ant-modal-body {
+  padding: 0px;
+}
+
+.modal-form-container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  border-bottom: 1px solid lightgrey;
+  background-color: rgb(99, 192, 235);
+}
+.ant-modal-header{
+  background-color: rgb(90, 147, 231);
+}
+.modal-form-option {
+  width: 50%;
+  padding: 5px;
+  text-align: center;
+}
+.active {
+  color: white;
+  background-color: #1d87b1;
+}
+
+.modal-form {
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+  flex-wrap: wrap;
+  padding: 10px;
+}
+
+.modal-form-field {
+  display: flex;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  box-sizing: border-box;
+  border-radius: 6px;
+  width: 48%;
+  height: 40px;
+  margin: 4px;
+  padding: 5px;
+}
+
+.modal-form-field input {
+  width: 67%;
+  border: 1px solid transparent;
+}
+
+.modal-form-field input:focus {
+  outline: none;
+}
+
+.modal-form .description {
+  width: 100%;
+}
+
+.description input {
+  width: 80%;
+}
+
+.modal-form-button button {
+  margin: 4px;
+  border-radius: 2px;
+  color: rgb(12, 11, 11);
+  padding: 7px;
+  border: none;
+  outline: none;
+}
+.modal-form-button button[type="submit"] {
+  background: #8276ec;
+  color: white;
+}
+.modal-form-button button:hover {
+  cursor: pointer;
+}
+
+.modal-form-button button:disabled {
+  cursor: not-allowed;
+}
+
+.ant-picker-input input:hover {
+  border: 1px solid transparent;
+}
+
+.ant-select:not(.ant-select-customize-input) .ant-select-selector {
+  border: 1px solid transparent;
+}
+.ant-select:not(.ant-select-customize-input):hover .ant-select-selector {
+  border: 1px solid transparent;
+}
+
+.ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input)
+  .ant-select-selector {
+  border: 1px solid transparent;
+  box-shadow: none;
+}

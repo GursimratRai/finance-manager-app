@@ -12,3 +12,9 @@ export const SIGNUP_FAILED = "SIGNUP_FAILED";
 //authenticate user
 export const AUTHENTICATE_USER = 'AUTHENTICATE_USER';
 export const LOGOUT = 'LOGOUT';
+
+//income 
+export const INCOME_START = 'INCOME_START';
+export const INCOME_SUCCESS = 'INCOME_SUCCESS';
+export const INCOME_FAILED = 'INCOME_FAILED';
+

@@ -1,7 +1,8 @@
 import { combineReducers } from "redux";
 import auth from './auth';
-
+import income from './income';
 //used to combine many reducers.
 export default combineReducers({
-  auth    
+  auth,
+  income    
 })

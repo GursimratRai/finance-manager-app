@@ -2,16 +2,28 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  background: paleturquoise;
 }
+
+.ant-picker-calendar-full .ant-picker-panel .ant-picker-calendar-date-content {
+  height: 2.6rem;
+  line-height: 1;
+  text-align: right;
+}
+
 .events .ant-badge-status {
   overflow: hidden;
   white-space: nowrap;
   width: 100%;
   text-overflow: ellipsis;
   font-size: 12px;
-  background: palevioletred;
 }
+
+.ant-badge-status-text {
+  margin-left: 8px;
+  color: rgba(0, 0, 0, 0.85);
+  font-size: 12px;
+}
+
 .notes-month {
   text-align: center;
   font-size: 28px;
@@ -20,6 +32,11 @@
   font-size: 28px;
 }
 
-.ant-picker-calendar-full .ant-picker-panel .ant-picker-calendar-date-content {
-  height: 2.6rem;
+.notes-month {
+  font-size: 28px;
+  text-align: center;
+}
+
+.notes-month section {
+  font-size: 28px;
 }

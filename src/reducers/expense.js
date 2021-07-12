@@ -1,25 +1,33 @@
-import { EXPENSE_START, EXPENSE_SUCCESS, EXPENSE_FAILED } from "../actions/actionTypes";
+import {
+  EXPENSE_START,
+  EXPENSE_SUCCESS,
+  EXPENSE_FAILED,
+  UPDATE_EXPENSES,
+} from "../actions/actionTypes";
 
 const initialExpenseState = {
   expense: {},
+  expenses: [],
   error: null,
   inProgress: false,
-  isSubmit : false
 };
 
 export default function expense(state = initialExpenseState, action) {
   switch (action.type) {
+    case UPDATE_EXPENSES:
+      return {
+        ...state,
+        expenses: action.expenses,
+      };
     case EXPENSE_START:
       return {
         ...state,
         inProgress: true,
-        isSubmit : false
       };
     case EXPENSE_SUCCESS:
       return {
         ...state,
-        expense: action.expense,
-        isSubmit : true,
+        expenses: [action.expense,...state.expenses],
         inProgress: false,
         error: action.error,
       };
@@ -27,7 +35,6 @@ export default function expense(state = initialExpenseState, action) {
       return {
         ...state,
         inProgress: false,
-        isSubmit : false,
         error: action.error,
       };
     default:

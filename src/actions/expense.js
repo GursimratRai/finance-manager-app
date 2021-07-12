@@ -1,8 +1,34 @@
-import { EXPENSE_START, EXPENSE_SUCCESS, EXPENSE_FAILED } from "./actionTypes";
+import { EXPENSE_START, EXPENSE_SUCCESS, EXPENSE_FAILED,UPDATE_EXPENSES } from "./actionTypes";
 import { APIUrls } from "../helpers/urls";
 import { getFormBody } from "../helpers/utils";
 import { getAuthTokenFromLocalStorage } from "../helpers/utils";
 import {notification} from 'antd';
+
+export function fetchExpenseList() {
+  return (dispatch) => {
+    const url = APIUrls.fetchExpenseList();
+    fetch(url, {
+      method: "GET",
+      headers: {
+        'Authorization' : `Bearer ${getAuthTokenFromLocalStorage()}`
+      }
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          dispatch(updateIncomes(data.data.expenses));
+          return;
+        }
+      });
+  };
+}
+
+export function updateIncomes(expenses) {
+  return {
+      type:UPDATE_EXPENSES,
+      expenses
+  }
+}
 
 export function startExpense() {
   return {

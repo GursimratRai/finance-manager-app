@@ -1,8 +1,35 @@
-import { INCOME_START, INCOME_SUCCESS, INCOME_FAILED } from "./actionTypes";
+import { INCOME_START, INCOME_SUCCESS, INCOME_FAILED ,UPDATE_INCOMES} from "./actionTypes";
 import { APIUrls } from "../helpers/urls";
 import { getFormBody } from "../helpers/utils";
 import { getAuthTokenFromLocalStorage } from "../helpers/utils";
 import {notification} from 'antd';
+
+
+export function fetchIncomeList() {
+  return (dispatch) => {
+    const url = APIUrls.fetchIncomeList();
+    fetch(url, {
+      method: "GET",
+      headers: {
+        'Authorization' : `Bearer ${getAuthTokenFromLocalStorage()}`
+      }
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          dispatch(updateIncomes(data.data.incomes));
+          return;
+        }
+      });
+  };
+}
+
+export function updateIncomes(incomes) {
+  return {
+      type:UPDATE_INCOMES,
+      incomes
+  }
+}
 
 export function startIncome() {
   return {

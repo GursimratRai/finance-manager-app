@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Calendar } from "antd";
+import { Calendar, Badge } from "antd";
 import { Transaction } from "./";
+import { fetchIncomeList } from "../actions/income";
+import { fetchExpenseList } from "../actions/expense";
+
 import moment from "moment";
 import "antd/dist/antd.css";
 import "../assets/css/Calender.css";
@@ -13,8 +16,6 @@ class Calender extends Component {
   };
 
   onSelect = (value) => {
-    console.log("value", value.format("DD-MM-YYYY"));
-
     this.setState({
       visible: true,
       date: value,
@@ -33,11 +34,69 @@ class Calender extends Component {
     });
   };
 
+  componentDidMount() {
+    this.props.dispatch(fetchIncomeList());
+    this.props.dispatch(fetchExpenseList());
+  }
+
   render() {
-    const { date, visible} = this.state;
+    const { date, visible } = this.state;
+    const { incomes, expenses } = this.props;
+    function getListData(value) {
+      let listData = [];
+      {
+        if (incomes.length > 0) {
+          let type = "success",
+            total = 0;
+          {
+            incomes.map((item) => {
+              if ( moment(item.date).format("DD-MM-YYYY") === value.format("DD-MM-YYYY")) {
+                total += item.amount;
+                return item;
+              }
+              return item;
+            });
+          }
+          listData = total > 0 ? [{ type, total }, ...listData] : [...listData];
+        }
+      }
+
+      {
+        if (expenses.length > 0) {
+          let type = "error",
+            total = 0;
+          {
+            expenses.map((item) => {
+              if ( moment(item.date).format("DD-MM-YYYY") === value.format("DD-MM-YYYY")) {
+                total += item.amount;
+                return item;
+              }
+              return item;
+            });
+          }
+          listData = total > 0 ? [{ type, total }, ...listData] : [...listData];
+        }
+      }
+      return listData || [];
+    }
+
+    function dateCellRender(value) {
+      const listData = getListData(value);
+      return (
+        <ul className="events">
+          {listData.length > 0 &&
+            listData.map((item, index) => (
+              <li key={item.date + index}>
+                <Badge status={item.type} text={item.total} />
+              </li>
+            ))}
+        </ul>
+      );
+    }
+
     return (
       <div>
-        <Calendar onSelect={this.onSelect} />
+        <Calendar onSelect={this.onSelect} dateCellRender={dateCellRender} />
         {visible && (
           <Transaction
             date={date}
@@ -53,7 +112,8 @@ class Calender extends Component {
 
 function mapStateToProps(state) {
   return {
-    income: state.income,
+    incomes: state.income.incomes,
+    expenses: state.expense.expenses,
   };
 }
 

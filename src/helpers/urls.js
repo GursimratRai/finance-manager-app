@@ -4,5 +4,7 @@ export const APIUrls = {
   login : () => `${API_ROOT}/users/login`,
   signup : () => `${API_ROOT}/users/signup`,
   addIncome : () => `${API_ROOT}/income/create`,
-  addExpense : () => `${API_ROOT}/expense/create`
+  addExpense : () => `${API_ROOT}/expense/create`,
+  fetchIncomeList : () => `${API_ROOT}/income/incomes`,
+  fetchExpenseList : () => `${API_ROOT}/expense/expenses`,
 };

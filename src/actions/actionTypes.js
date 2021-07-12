@@ -17,10 +17,10 @@ export const LOGOUT = 'LOGOUT';
 export const INCOME_START = 'INCOME_START';
 export const INCOME_SUCCESS = 'INCOME_SUCCESS';
 export const INCOME_FAILED = 'INCOME_FAILED';
-
+export const UPDATE_INCOMES = 'UPDATE_INCOMES';
 
 //expense
 export const EXPENSE_START = 'EXPENSE_START';
 export const EXPENSE_SUCCESS = 'EXPENSE_SUCCESS';
 export const EXPENSE_FAILED = 'EXPENSE_FAILED';
-
+export const UPDATE_EXPENSES = 'UPDATE_EXPENSES';

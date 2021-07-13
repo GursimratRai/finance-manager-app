@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import { DatePicker, Select } from "antd";
-import { createIncome } from "../actions/income";
-
 import moment from "moment";
+import { createTransaction } from "../actions/transaction";
 
 const { Option } = Select;
 
@@ -27,7 +26,7 @@ const IncomeForm = (props) => {
   const [date, setDate] = useState(props.date);
   const [category, setCategory] = useState("salary");
   const { onCancel, onSubmit } = props;
-  const { inProgress } = props.income;
+  const { inProgress } = props.transaction;
 
   const dateFormat = "DD/MM/YYYY";
   const dispatch = useDispatch();
@@ -37,7 +36,8 @@ const IncomeForm = (props) => {
 
     if (source && amount && date && category) {
       dispatch(
-        createIncome({
+        createTransaction({
+          type:'Income',
           source: source.value,
           amount: amount.value,
           description: description.value,
@@ -128,7 +128,7 @@ const IncomeForm = (props) => {
 
 function mapStateToProps(state) {
   return {
-    income: state.income,
+    transaction: state.transaction,
   };
 }
 

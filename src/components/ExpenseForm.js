@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { connect, useDispatch } from "react-redux";
+import { connect,useDispatch } from "react-redux";
 import { DatePicker, Select } from "antd";
-import { createExpense } from "../actions/expense";
-
 import moment from "moment";
+import { createTransaction } from "../actions/transaction";
 
 const { Option } = Select;
 
@@ -27,7 +26,7 @@ const ExpenseForm = (props) => {
   const [date, setDate] = useState(props.date);
   const [category, setCategory] = useState("food");
   const { onCancel, onSubmit } = props;
-  const { inProgress } = props.expense;
+  const { inProgress } = props.transaction;
 
   const dateFormat = "DD/MM/YYYY";
   const dispatch = useDispatch();
@@ -37,7 +36,8 @@ const ExpenseForm = (props) => {
 
     if (source && amount && date && category) {
       dispatch(
-        createExpense({
+        createTransaction({
+          type:'Expense',
           source: source.value,
           amount: amount.value,
           description: description.value,
@@ -132,7 +132,7 @@ const ExpenseForm = (props) => {
 
 function mapStateToProps(state) {
   return {
-    expense: state.expense,
+    transaction: state.transaction,
   };
 }
 

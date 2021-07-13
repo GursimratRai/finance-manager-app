@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Calendar, Badge } from "antd";
-import { Transaction } from "./";
-import { fetchIncomeList } from "../actions/income";
-import { fetchExpenseList } from "../actions/expense";
-
+import { ShowTransaction } from "./";
 import moment from "moment";
+import { fetchTransactionList } from "../actions/transaction";
+
 import "antd/dist/antd.css";
 import "../assets/css/Calender.css";
 
@@ -35,48 +34,54 @@ class Calender extends Component {
   };
 
   componentDidMount() {
-    this.props.dispatch(fetchIncomeList());
-    this.props.dispatch(fetchExpenseList());
+    this.props.dispatch(fetchTransactionList());
   }
 
   render() {
     const { date, visible } = this.state;
-    const { incomes, expenses } = this.props;
+    const { transactions} = this.props;
+    function getTransactionData(value) {
+      let list = [];
+
+      transactions.length > 0 &&
+        transactions.map((item) => {
+          if (
+            moment(item.date).format("DD-MM-YYYY") ===
+            value.format("DD-MM-YYYY")
+          ) {
+
+            list = [item, ...list];
+            return item;
+          }
+          return item;
+        });
+
+      return list || [];
+    }
+
     function getListData(value) {
       let listData = [];
-      {
-        if (incomes.length > 0) {
-          let type = "success",
-            total = 0;
-          {
-            incomes.map((item) => {
-              if ( moment(item.date).format("DD-MM-YYYY") === value.format("DD-MM-YYYY")) {
-                total += item.amount;
-                return item;
-              }
-              return item;
-            });
-          }
-          listData = total > 0 ? [{ type, total }, ...listData] : [...listData];
-        }
-      }
+      let totalIncome = 0;
+      let totalExpense = 0;
 
-      {
-        if (expenses.length > 0) {
-          let type = "error",
-            total = 0;
-          {
-            expenses.map((item) => {
-              if ( moment(item.date).format("DD-MM-YYYY") === value.format("DD-MM-YYYY")) {
-                total += item.amount;
-                return item;
-              }
-              return item;
-            });
+      transactions.length > 0 &&
+        transactions.map((item) => {
+          if (
+            moment(item.date).format("DD-MM-YYYY") ===
+            value.format("DD-MM-YYYY")
+          ) {
+            if(item.type==='Income'){
+              totalIncome += item.amount;
+            }
+            else{
+              totalExpense += item.amount;
+            }
+            return item;
           }
-          listData = total > 0 ? [{ type, total }, ...listData] : [...listData];
-        }
-      }
+          return item;
+        });
+      listData = totalIncome > 0 ? [{ type:'success', total:totalIncome }, ...listData] : [...listData];
+      listData = totalExpense > 0 ? [{ type:'error', total:totalExpense }, ...listData] : [...listData];
       return listData || [];
     }
 
@@ -86,7 +91,7 @@ class Calender extends Component {
         <ul className="events">
           {listData.length > 0 &&
             listData.map((item, index) => (
-              <li key={item.date + index}>
+              <li key={item._id}>
                 <Badge status={item.type} text={item.total} />
               </li>
             ))}
@@ -98,11 +103,12 @@ class Calender extends Component {
       <div>
         <Calendar onSelect={this.onSelect} dateCellRender={dateCellRender} />
         {visible && (
-          <Transaction
-            date={date}
-            visible={visible}
+          <ShowTransaction
             onCancel={this.onCancel}
             onSubmit={this.onSubmit}
+            visible={visible}
+            date={date}
+            list={getTransactionData(date)}
           />
         )}
       </div>
@@ -112,8 +118,7 @@ class Calender extends Component {
 
 function mapStateToProps(state) {
   return {
-    incomes: state.income.incomes,
-    expenses: state.expense.expenses,
+    transactions:state.transaction.transactions
   };
 }
 

@@ -1,12 +1,13 @@
-import { EXPENSE_START, EXPENSE_SUCCESS, EXPENSE_FAILED,UPDATE_EXPENSES } from "./actionTypes";
+import { TRANSACTION_START, TRANSACTION_SUCCESS, TRANSACTION_FAILED ,UPDATE_TRANSACTIONS} from "./actionTypes";
 import { APIUrls } from "../helpers/urls";
 import { getFormBody } from "../helpers/utils";
 import { getAuthTokenFromLocalStorage } from "../helpers/utils";
 import {notification} from 'antd';
 
-export function fetchExpenseList() {
+
+export function fetchTransactionList() {
   return (dispatch) => {
-    const url = APIUrls.fetchExpenseList();
+    const url = APIUrls.fetchTransactionList();
     fetch(url, {
       method: "GET",
       headers: {
@@ -16,59 +17,59 @@ export function fetchExpenseList() {
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
-          dispatch(updateIncomes(data.data.expenses));
+          dispatch(updateTransactions(data.data.transactions));
           return;
         }
       });
   };
 }
 
-export function updateIncomes(expenses) {
+export function updateTransactions(transactions) {
   return {
-      type:UPDATE_EXPENSES,
-      expenses
+      type:UPDATE_TRANSACTIONS,
+      transactions
   }
 }
 
-export function startExpense() {
+export function startTransaction() {
   return {
-    type: EXPENSE_START,
+    type: TRANSACTION_START,
   };
 }
 
-export function expenseFailed(errorMessage) {
+export function transactionFailed(errorMessage) {
   return {
-    type: EXPENSE_FAILED,
+    type: TRANSACTION_FAILED,
     error: errorMessage,
   };
 }
 
-export function expenseSuccess(expense,error) {
+export function transactionSuccess(transaction,error) {
   return {
-    type: EXPENSE_SUCCESS,
-    expense,
+    type: TRANSACTION_SUCCESS,
+    transaction,
     error
   };
 }
 
-export function createExpense(source, amount, date, category, description) {
+export function createTransaction(type,source, amount, date, category, description) {
   return (dispatch) => {
-    dispatch(startExpense());
-    const url = APIUrls.addExpense();
+    dispatch(startTransaction());
+    const url = APIUrls.addTransaction();
     fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
         'Authorization' : `Bearer ${getAuthTokenFromLocalStorage()}`
       },
-      body: getFormBody(source, amount, date, category, description),
+      body: getFormBody(type,source, amount, date, category, description),
     })
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
-          dispatch(expenseSuccess(data.data.expense,data.message));
+          dispatch(transactionSuccess(data.data.transaction,data.message));
           notification.success({
-            message:'Expense Successfully added',
+            message:'Transaction Successfully added',
             style:{
               borderRadius:5,
               backgroundColor:'#9cda7e',
@@ -77,7 +78,7 @@ export function createExpense(source, amount, date, category, description) {
           })
           return;
         }
-        dispatch(expenseFailed(data.message));
+        dispatch(transactionFailed(data.message));
         notification.error({
           message:'Error',
           style:{

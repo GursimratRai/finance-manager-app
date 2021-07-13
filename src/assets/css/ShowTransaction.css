@@ -1,0 +1,74 @@
+/* .ant-collapse-item {
+  border: 5px solid red;
+  background-color: green;
+}
+
+.ant-collapse-header{
+  color:white;
+} */
+
+.transaction-list-box {
+  max-height: 36vh;
+  overflow: scroll;
+}
+
+.transaction-list-box::-webkit-scrollbar {
+  display: none;
+}
+.list-item {
+  display: flex;
+  justify-content: space-evenly;
+  /* border-bottom: 0px; */
+  /* border:2px solid green; */
+}
+
+.list-header {
+  padding: 5px;
+  color: rgb(23, 23, 204);
+  background-color: #fafafa;
+  border-bottom: 1px solid #d9d9d9;
+}
+.list-header span{
+  width:33%;
+  text-align: center;
+}
+
+.list-item {
+  font-size: 15px;
+  font-weight: 400;
+}
+.list-item > span{
+  width:33%;
+}
+/* 
+ .list-item .ant-badge-status-dot{
+   width:12px;
+   height: 12px;
+ } */
+
+/* .ant-modal-body{ 
+ padding:20px; 
+} */
+
+/* .ant-collapse-item{
+ margin:5px;
+} */
+/* 
+.ant-collapse > .ant-collapse-item > .ant-collapse-header{
+  border:2px solid green;
+  background-color: rgb(139, 231, 139);
+} */
+
+.list-item.success {
+  /* background-color: green; */
+  color: green;
+  /* border-color: green; */
+  /* border:5px solid green; */
+}
+.list-item.error {
+  color: red;
+
+  /* border-color: red; */
+  /* border:5px solid red; */
+  /* background-color: red; */
+}

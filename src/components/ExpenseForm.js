@@ -50,11 +50,9 @@ const ExpenseForm = (props) => {
   };
 
   function handleCategoryChange(value) {
-    console.log(`selected ${value}`);
     setCategory(value);
   }
   function handleDateChange(value) {
-    console.log(`Date changed ${moment(value).format("DD-MM-YYYY")}`);
     setDate(moment(value));
   }
 

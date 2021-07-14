@@ -1,14 +1,5 @@
-/* .ant-collapse-item {
-  border: 5px solid red;
-  background-color: green;
-}
-
-.ant-collapse-header{
-  color:white;
-} */
-
 .transaction-list-box {
-  max-height: 36vh;
+  max-height: 37vh;
   overflow: scroll;
 }
 
@@ -18,12 +9,21 @@
 .list-item {
   display: flex;
   justify-content: space-evenly;
-  /* border-bottom: 0px; */
-  /* border:2px solid green; */
+}
+
+.list-item {
+  padding-left: 20px;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.list-item > span{
+  width:30%;
+  padding-top: 7px;
 }
 
 .list-header {
-  padding: 5px;
+  padding: 0px;
   color: rgb(23, 23, 204);
   background-color: #fafafa;
   border-bottom: 1px solid #d9d9d9;
@@ -33,42 +33,23 @@
   text-align: center;
 }
 
-.list-item {
-  font-size: 15px;
-  font-weight: 400;
-}
-.list-item > span{
-  width:33%;
-}
-/* 
- .list-item .ant-badge-status-dot{
-   width:12px;
-   height: 12px;
- } */
-
-/* .ant-modal-body{ 
- padding:20px; 
-} */
-
-/* .ant-collapse-item{
- margin:5px;
-} */
-/* 
-.ant-collapse > .ant-collapse-item > .ant-collapse-header{
-  border:2px solid green;
-  background-color: rgb(139, 231, 139);
-} */
-
 .list-item.success {
-  /* background-color: green; */
   color: green;
-  /* border-color: green; */
-  /* border:5px solid green; */
 }
 .list-item.error {
   color: red;
+}
+.ant-collapse .ant-collapse-item-disabled > .ant-collapse-header, .ant-collapse .ant-collapse-item-disabled > .ant-collapse-header > .arrow{
+  cursor:pointer;
+}
+.ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-extra{
+  position: relative;
+  top: -7px;
+  float:left;
+}
 
-  /* border-color: red; */
-  /* border:5px solid red; */
-  /* background-color: red; */
+.ant-collapse-icon-position-right > .ant-collapse-item > .ant-collapse-header{
+  padding:10px;
+  line-height: 10px;
+  align-items: center;
 }

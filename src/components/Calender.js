@@ -50,7 +50,7 @@ class Calender extends Component {
             value.format("DD-MM-YYYY")
           ) {
 
-            list = [item, ...list];
+            list = [...list,item];
             return item;
           }
           return item;

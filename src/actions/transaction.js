@@ -6,7 +6,11 @@ import {
   DELETE_TRANSACTION_START,
   DELETE_TRANSACTION_SUCCESS,
   DELETE_TRANSACTION_FAILED,
+  UPDATE_TRANSACTION_START,
+  UPDATE_TRANSACTION_SUCCESS,
+  UPDATE_TRANSACTION_FAILED,
 } from "./actionTypes";
+
 import { APIUrls } from "../helpers/urls";
 import { getFormBody } from "../helpers/utils";
 import { getAuthTokenFromLocalStorage } from "../helpers/utils";
@@ -59,14 +63,7 @@ export function transactionSuccess(transaction, error) {
   };
 }
 
-export function createTransaction(
-  type,
-  source,
-  amount,
-  date,
-  category,
-  description
-) {
+export function createTransaction(content) {
   return (dispatch) => {
     dispatch(startTransaction());
     const url = APIUrls.addTransaction();
@@ -76,7 +73,7 @@ export function createTransaction(
         "Content-Type": "application/x-www-form-urlencoded",
         Authorization: `Bearer ${getAuthTokenFromLocalStorage()}`,
       },
-      body: getFormBody(type, source, amount, date, category, description),
+      body: getFormBody(content),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -153,6 +150,68 @@ export function deleteTransaction(ids) {
         }
 
         dispatch(deleteFailed(data.message));
+        notification.error({
+          message: "Error",
+          style: {
+            borderRadius: 5,
+            backgroundColor: "#e89795",
+            borderColor: "#880411",
+          },
+        });
+      });
+  };
+}
+
+export function startUpdate() {
+  return {
+    type: UPDATE_TRANSACTION_START,
+  };
+}
+
+export function updateSuccess(transaction,error) {
+  return {
+    type: UPDATE_TRANSACTION_SUCCESS,
+    transaction,
+    error,
+  };
+}
+
+export function updateFailed(error) {
+  return {
+    type: UPDATE_TRANSACTION_FAILED,
+    error,
+  };
+}
+
+export function updateTransaction(id, content) {
+
+  return (dispatch) => {
+    dispatch(startUpdate());
+    const url = APIUrls.updateTransaction(id);
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: `Bearer ${getAuthTokenFromLocalStorage()}`,
+      },
+      body: getFormBody(content),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          dispatch(updateSuccess(data.data.transaction,data.message));
+          notification.success({
+            message: "Transaction Updated Successfully",
+            style: {
+              borderRadius: 5,
+              backgroundColor: "#9cda7e",
+              borderColor: "#2f6316",
+            },
+          });
+          return;
+        }
+
+        dispatch(updateFailed(data.message));
         notification.error({
           message: "Error",
           style: {

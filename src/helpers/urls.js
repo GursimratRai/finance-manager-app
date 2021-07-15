@@ -6,4 +6,6 @@ export const APIUrls = {
   addTransaction : () => `${API_ROOT}/transaction/create`,
   fetchTransactionList : () => `${API_ROOT}/transaction/transactions`,
   deleteTransaction : () => `${API_ROOT}/transaction/delete`,
+  updateTransaction : (id) => `${API_ROOT}/transaction/update?id=${id}`,
+
 };

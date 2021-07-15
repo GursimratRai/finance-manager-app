@@ -1,5 +1,5 @@
 .transaction-list-box {
-  max-height: 37vh;
+  max-height: 32vh;
   overflow: scroll;
 }
 
@@ -9,16 +9,13 @@
 .list-item {
   display: flex;
   justify-content: space-evenly;
-}
-
-.list-item {
   padding-left: 20px;
   font-size: 15px;
   font-weight: 400;
 }
 
-.list-item > span{
-  width:30%;
+.list-item > span {
+  width: 20%;
   padding-top: 7px;
 }
 
@@ -28,8 +25,8 @@
   background-color: #fafafa;
   border-bottom: 1px solid #d9d9d9;
 }
-.list-header span{
-  width:33%;
+.list-header > span {
+  width: 28%;
   text-align: center;
 }
 
@@ -39,17 +36,26 @@
 .list-item.error {
   color: red;
 }
-.ant-collapse .ant-collapse-item-disabled > .ant-collapse-header, .ant-collapse .ant-collapse-item-disabled > .ant-collapse-header > .arrow{
-  cursor:pointer;
+
+.ant-collapse .ant-collapse-item-disabled > .ant-collapse-header,
+.ant-collapse .ant-collapse-item-disabled > .ant-collapse-header > .arrow {
+  cursor: pointer;
 }
-.ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-extra{
+.ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-extra {
   position: relative;
   top: -7px;
-  float:left;
+  float: left;
 }
 
-.ant-collapse-icon-position-right > .ant-collapse-item > .ant-collapse-header{
-  padding:10px;
+.ant-collapse-icon-position-right > .ant-collapse-item > .ant-collapse-header {
+  padding: 10px;
   line-height: 10px;
   align-items: center;
+}
+
+.edit-icon {
+  border: 0;
+  background-color: transparent;
+  color: #6767d0;
+  font-size: 20px;
 }

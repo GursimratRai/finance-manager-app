@@ -5,12 +5,16 @@ import { Transaction } from "./";
 import "../assets/css/ShowTransaction.css";
 import { useDispatch } from "react-redux";
 import { deleteTransaction } from "../actions/transaction";
+import EditForm from "./EditForm";
 
 const { Panel } = Collapse;
 
 const ShowTransaction = (props) => {
   const { onCancel, visible, date, list } = props;
   const [show, setShow] = useState(false);
+  const [edit, setEdit] = useState(false);
+  const [formValues, setFormValues] = useState('');
+  
   const [listState, setListState] = useState([]);
   const dispatch = useDispatch();
 
@@ -25,6 +29,7 @@ const ShowTransaction = (props) => {
           select: false,
           type: item.type,
           id: item._id,
+          date:item.date,
           source: item.source,
           category: item.category,
           amount: item.amount,
@@ -36,10 +41,12 @@ const ShowTransaction = (props) => {
 
   const onClose = () => {
     setShow(false);
+    setEdit(false);
   };
 
   const onSubmit = () => {
     setShow(false);
+    setEdit(false);
   };
 
   const showTransaction = () => {
@@ -69,8 +76,21 @@ const ShowTransaction = (props) => {
     dispatch(deleteTransaction({ _id: arrayids }));
   };
 
+  const handleEdit = (e,id) => {
+    e.stopPropagation();
+    listState.map(item => {
+      if(item.id === id)
+      {
+        setEdit(true);
+        setFormValues(item);
+      }
+      return item;
+    });
+
+  }
+
   const genExtra = (select, id) => (
-    <input
+    <input id='checbox'
       type="checkbox"
       checked={select}
       onChange={(event) => {
@@ -120,7 +140,7 @@ const ShowTransaction = (props) => {
         {listState.length > 0 ? (
           <div>
             <div className="list-item list-header">
-              <span style={{ textAlign: "left" }}>
+              <span style={{ textAlign: "left" , width:'5%'}}>
                 <input
                   style={{ margin: 10 }}
                   type="checkbox"
@@ -134,10 +154,12 @@ const ShowTransaction = (props) => {
                     );
                   }}
                 />
-                Source
+                
               </span>
+              <span>Source</span>
               <span>Category</span>
               <span>Amount</span>
+              <span>Action</span>
             </div>
             <div className="transaction-list-box">
               <Collapse accordion="true" expandIconPosition="right">
@@ -162,15 +184,17 @@ const ShowTransaction = (props) => {
                           </span>
 
                           <span
-                            style={{ textAlign: "right", paddingRight: 35 }}
+                            style={{ textAlign: "center", paddingRight: 35 }}
                           >
                             {item.amount}
                           </span>
+                          <button onClick = {(e) => handleEdit(e,item.id)}  className='edit-icon' > <i className="fas fa-feather-alt"></i> </button>
                         </div>
                       }
                       key={item._id}
                     >
-                      <div>{item.description}</div>
+                      <span>Description : </span>
+                      <span>{item.description}</span>
                     </Panel>
                   );
                 })}
@@ -197,6 +221,10 @@ const ShowTransaction = (props) => {
           date={date}
         />
       )}
+      {edit && (
+        <EditForm  visible={edit} values={formValues} onSubmit={onSubmit} onCancel={onClose} />
+      )}
+
     </div>
   );
 };

@@ -13,8 +13,7 @@ const ShowTransaction = (props) => {
   const { onCancel, visible, date, list } = props;
   const [show, setShow] = useState(false);
   const [edit, setEdit] = useState(false);
-  const [formValues, setFormValues] = useState('');
-  
+  const [formValues, setFormValues] = useState("");
   const [listState, setListState] = useState([]);
   const dispatch = useDispatch();
 
@@ -29,7 +28,7 @@ const ShowTransaction = (props) => {
           select: false,
           type: item.type,
           id: item._id,
-          date:item.date,
+          date: item.date,
           source: item.source,
           category: item.category,
           amount: item.amount,
@@ -76,21 +75,20 @@ const ShowTransaction = (props) => {
     dispatch(deleteTransaction({ _id: arrayids }));
   };
 
-  const handleEdit = (e,id) => {
+  const handleEdit = (e, id) => {
     e.stopPropagation();
-    listState.map(item => {
-      if(item.id === id)
-      {
+    listState.map((item) => {
+      if (item.id === id) {
         setEdit(true);
         setFormValues(item);
       }
       return item;
     });
-
-  }
+  };
 
   const genExtra = (select, id) => (
-    <input id='checbox'
+    <input
+      id="checbox"
       type="checkbox"
       checked={select}
       onChange={(event) => {
@@ -140,7 +138,7 @@ const ShowTransaction = (props) => {
         {listState.length > 0 ? (
           <div>
             <div className="list-item list-header">
-              <span style={{ textAlign: "left" , width:'5%'}}>
+              <span style={{ textAlign: "left", width: "5%" }}>
                 <input
                   style={{ margin: 10 }}
                   type="checkbox"
@@ -154,7 +152,6 @@ const ShowTransaction = (props) => {
                     );
                   }}
                 />
-                
               </span>
               <span>Source</span>
               <span>Category</span>
@@ -167,6 +164,7 @@ const ShowTransaction = (props) => {
                   return (
                     <Panel
                       extra={genExtra(item.select, item.id)}
+                      key={item.id}
                       showArrow={item.description.length === 0 ? false : true}
                       collapsible={
                         item.description.length === 0 ? "disabled" : "header"
@@ -188,10 +186,14 @@ const ShowTransaction = (props) => {
                           >
                             {item.amount}
                           </span>
-                          <button onClick = {(e) => handleEdit(e,item.id)}  className='edit-icon' > <i className="fas fa-feather-alt"></i> </button>
+                          <button
+                            onClick={(e) => handleEdit(e, item.id)}
+                            className="edit-icon"
+                          >
+                            <i className="fas fa-feather-alt"></i>{" "}
+                          </button>
                         </div>
                       }
-                      key={item._id}
                     >
                       <span>Description : </span>
                       <span>{item.description}</span>
@@ -215,6 +217,7 @@ const ShowTransaction = (props) => {
 
       {show && (
         <Transaction
+          key="transaction-component"
           onSubmit={onSubmit}
           onCancel={onClose}
           visible={show}
@@ -222,9 +225,14 @@ const ShowTransaction = (props) => {
         />
       )}
       {edit && (
-        <EditForm  visible={edit} values={formValues} onSubmit={onSubmit} onCancel={onClose} />
+        <EditForm
+          key="edit-form-component"
+          visible={edit}
+          values={formValues}
+          onSubmit={onSubmit}
+          onCancel={onClose}
+        />
       )}
-
     </div>
   );
 };

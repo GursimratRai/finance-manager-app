@@ -90,7 +90,7 @@ class Calender extends Component {
       return (
         <ul className="events">
           {listData.length > 0 &&
-            listData.map((item, index) => (
+            listData.map(item => (
               <li key={item._id}>
                 <Badge status={item.type} text={item.total} />
               </li>

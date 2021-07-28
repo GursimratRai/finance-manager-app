@@ -10,6 +10,7 @@ import Transaction from "./Transaction";
 import IncomeForm from "./IncomeForm";
 import ExpenseForm from "./ExpenseForm";
 import ShowTransaction from './ShowTransaction';
+import BarChart from "./BarChart";
 
 export {
   Login,
@@ -23,5 +24,6 @@ export {
   Transaction,
   IncomeForm,
   ExpenseForm,
-  ShowTransaction
+  ShowTransaction,
+  BarChart
 };

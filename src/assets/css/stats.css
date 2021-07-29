@@ -1,0 +1,21 @@
+.statistic {
+  background-color: whitesmoke;
+  border-radius: 12px;
+  margin: 10px;
+  padding: 10px;
+  text-align: center;
+}
+
+.saving {
+  margin: auto;
+}
+
+.category-text {
+  position: absolute;
+  top: 35%;
+  left: 35%;
+  color: rgb(157, 157, 243);
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-align: center;
+}

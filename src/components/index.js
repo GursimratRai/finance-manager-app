@@ -11,6 +11,8 @@ import IncomeForm from "./IncomeForm";
 import ExpenseForm from "./ExpenseForm";
 import ShowTransaction from './ShowTransaction';
 import BarChart from "./BarChart";
+import DoughnutChart from "./DoughnutChart";
+import StatChart from './StatChart';
 
 export {
   Login,
@@ -25,5 +27,7 @@ export {
   IncomeForm,
   ExpenseForm,
   ShowTransaction,
-  BarChart
+  BarChart,
+  DoughnutChart,
+  StatChart,
 };

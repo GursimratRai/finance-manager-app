@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { Bar } from "react-chartjs-2";
 import { getData } from "../helpers/utils";
@@ -10,15 +10,13 @@ function getChartData(Data) {
       {
         label: "Income",
         data: Data.incomeData,
-        backgroundColor: ["rgba(82, 196, 26, 0.5)"],
-        borderColor: ["rgba(77, 177, 27,0.2)"],
+        backgroundColor:Data.incomeBackgroundColor,
         borderWidth: 1,
       },
       {
         label: "Expense",
         data: Data.expenseData,
-        backgroundColor: ["rgba(224, 87, 87, 0.7)"],
-        borderColor: ["rgba(224, 87, 87, 0.5)"],
+        backgroundColor: Data.expenseBackgroundColor,
         borderWidth: 1,
       },
     ],

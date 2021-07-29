@@ -44,7 +44,7 @@ const options1 = {
 };
 
 function DoughnutChart(props) {
-  const Data = getData(props.transactions);
+  const Data = getData(props.type,props.xtype,props.dateFormat,props.transactions);
   const incomeData = getChartData(Data.incomePerCatogories);
   const expenseData = getChartData(Data.expensePerCatogories);
 

@@ -4,7 +4,7 @@ import { getData } from "../helpers/utils";
 import { Row, Col, Statistic } from "antd";
 
 function StatChart(props) {
-  const Data = getData(props.transactions);
+  const Data = getData(props.type,props.xtype,props.dateFormat,props.transactions);
   return (
     <div>
       <Row>

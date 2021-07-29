@@ -25,11 +25,11 @@ function getChartData(Data) {
 }
 
 const BarChart = (props) => {
-  const Data = getData(props.transactions);
+  const Data = getData(props.type,props.xtype,props.dateFormat,props.transactions);
   const chartData = getChartData(Data);
   return (
     <div>
-      <Bar width="100vw" height="25vh" data={chartData} />
+      <Bar width={100} height={25} data={chartData} />
     </div>
   );
 };

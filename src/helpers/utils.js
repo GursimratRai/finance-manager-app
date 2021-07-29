@@ -15,19 +15,20 @@ export function getAuthTokenFromLocalStorage() {
   return localStorage.getItem("token");
 }
 
-export function getDates() {
-  let fromDate = moment().startOf("month");
-  let toDate = moment().endOf("month");
-  let diff = toDate.diff(fromDate, "days");
+export function getDates(type,xtype) {
+  let fromDate = moment().startOf(type);
+  let toDate = moment().endOf(type);
+  let diff = toDate.diff(fromDate, xtype);
   let dates = [];
   for (let i = 0; i <= diff; i++) {
-    dates.push(moment(fromDate).add(i, "days").format("MMM Do,YY"));
+    dates.push(moment(fromDate).add(i, xtype));
   }
   return dates;
 }
 
-export function getData(transactions) {
-  const dates = getDates();
+export function getData(type,xtype,dateFormat,transactions) {
+  const dates = getDates(type,xtype);
+
   let totalIncome = 0;
   let totalExpense = 0;
   const incomePerDate = [];
@@ -41,7 +42,8 @@ export function getData(transactions) {
     let ita = 0;
     let eta = 0;
     for (let t of transactions) {
-      if (t.type === "Income" && moment(t.date).format("MMM Do,YY") === d) {
+
+      if (t.type === "Income" && moment(t.date).format(dateFormat) === moment(d).format(dateFormat)) {
         ita += t.amount;
         totalIncome += t.amount;
         if (!incomePerCatogories[t.category]) {
@@ -51,7 +53,7 @@ export function getData(transactions) {
           incomePerCatogories[t.category] = newAmount;
         }
       }
-      if (t.type === "Expense" && moment(t.date).format("MMM Do,YY") === d) {
+      if (t.type === "Expense" && moment(t.date).format(dateFormat) === moment(d).format(dateFormat)) {
         eta += t.amount;
         totalExpense += t.amount;
         if (!expensePerCatogories[t.category]) {
@@ -69,8 +71,14 @@ export function getData(transactions) {
 
   }
 
+  const formatDates=[];
+  dates.map(d => {
+    formatDates.push(d.format(dateFormat));
+    return d;
+  })
+
   const data = {
-    dates,
+    dates:formatDates,
     incomeData: incomePerDate,
     expenseData: expensePerDate,
     incomeBackgroundColor,

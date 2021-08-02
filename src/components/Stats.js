@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { BarChart, StatChart, DoughnutChart } from "./";
-import { Radio, Row, Col } from "antd";
+import { connect } from "react-redux";
+import { Radio, Button, Row, Col } from "antd";
 
 import "../assets/css/stats.css";
+import { getData } from "../helpers/utils";
+import { BarChart, StatChart, DoughnutChart } from "./";
 
 const options = [
   { label: "Week", value: "week" },
@@ -11,53 +13,89 @@ const options = [
 ];
 
 const Stats = (props) => {
-  const [value, setValue] = useState("month");
-  const [xtype, setXtype] = useState("days");
-  const [dateFormat, SetDateFormat] = useState("MMM Do,YY");
+  let [navigator, setNavigator] = useState(0);
+  const [config, SetConfig] = useState({
+    type: "month",
+    subtype: "days",
+    dateFormat: "MMM Do,YY",
+  });
+  const Data = getData(
+    config.type,
+    config.subtype,
+    navigator,
+    config.dateFormat,
+    props.transactions
+  );
 
   const onChange = (e) => {
-      e.preventDefault();
-      setValue(e.target.value);
-      console.log('value',e.target.value);
-      if(e.target.value === "week"){
-        setXtype("days");
-        SetDateFormat("MMM Do,YY");
-      }else if(e.target.value === "month"){
-          setXtype("days");
-          SetDateFormat("MMM Do,YY");
-      }else if(e.target.value === "year"){
-          setXtype("month");
-          SetDateFormat("MMM,YY");
+    e.preventDefault();
+    if (e.target.value === "week") {
+      setNavigator(0);
+      SetConfig({ type: "week", subtype: "days", dateFormat: "MMM Do,YY" });
+    } else if (e.target.value === "month") {
+      setNavigator(0);
+      SetConfig({ type: "month", subtype: "days", dateFormat: "MMM Do,YY" });
+    } else if (e.target.value === "year") {
+      setNavigator(0);
+      SetConfig({ type: "year", subtype: "month", dateFormat: "MMM ,YY" });
     }
   };
 
   return (
-    <div>
-      <Row>
-        <Col span={24}>
+    <div style={{ padding: 10 }}>
+      <Row style={{ padding: 5 }}>
+        <Col span={19}>
+          <Button
+            type="primary"
+            onClick={(e) => {
+              e.preventDefault();
+              setNavigator(--navigator);
+            }}
+            shape="circle"
+          >
+            <i className="fas fa-angle-left"></i>
+          </Button>
+          <Button
+            type="primary"
+            onClick={(e) => {
+              e.preventDefault();
+              setNavigator(++navigator);
+            }}
+            shape="circle"
+          >
+            <i className="fas fa-angle-right"></i>
+          </Button>
+        </Col>
+        <Col span={5}>
           <Radio.Group
             options={options}
             onChange={onChange}
-            value={value}
+            value={config.type}
             optionType="button"
           />
         </Col>
       </Row>
       <Row>
         <Col span={24}>
-          <BarChart type={value} xtype={xtype} dateFormat={dateFormat} />
+          <BarChart Data={Data} />
         </Col>
       </Row>
-      <Row style={{ marginTop: 40 }}>
-        <Col span={12}>
-          <StatChart type={value}  xtype={xtype} dateFormat={dateFormat} />
+      <Row>
+        <Col span={10}>
+          <StatChart Data={Data} />
         </Col>
-        <Col span={12}>
-          <DoughnutChart type={value}  xtype={xtype} dateFormat={dateFormat} />
+        <Col span={14}>
+          <DoughnutChart Data={Data} />
         </Col>
       </Row>
     </div>
   );
 };
 
-export default Stats;
+function mapStateToProps(state) {
+  return {
+    transactions: state.transaction.transactions,
+  };
+}
+
+export default connect(mapStateToProps)(Stats);

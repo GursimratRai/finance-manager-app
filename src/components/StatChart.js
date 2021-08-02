@@ -1,10 +1,8 @@
 import React from "react";
-import { connect } from "react-redux";
-import { getData } from "../helpers/utils";
 import { Row, Col, Statistic } from "antd";
 
-function StatChart(props) {
-  const Data = getData(props.type,props.xtype,props.dateFormat,props.transactions);
+const StatChart = (props) => {
+  const Data = props.Data;
   return (
     <div>
       <Row>
@@ -38,10 +36,4 @@ function StatChart(props) {
   );
 }
 
-function mapStateToProps(state) {
-  return {
-    transactions: state.transaction.transactions,
-  };
-}
-
-export default connect(mapStateToProps)(StatChart);
+export default StatChart;

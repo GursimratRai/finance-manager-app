@@ -1,73 +1,99 @@
 import React from "react";
 import { Row, Col } from "antd";
-import { connect } from "react-redux";
-import { Doughnut } from "react-chartjs-2";
-import { getData } from "../helpers/utils";
+import { Pie, measureTextWidth } from "@ant-design/charts";
 
-function getChartData(categoryObject) {
-  let category = Array.from(Object.keys(categoryObject));
-  let values = Array.from(Object.values(categoryObject));
+const DoughnutChart = (props) => {
+  const renderStatistic = (containerWidth, text, style) => {
+    var _measureTextWidth = (0, measureTextWidth)(text, style),
+      textWidth = _measureTextWidth.width,
+      textHeight = _measureTextWidth.height;
+    var R = containerWidth / 2;
+    var scale = 1;
+    if (containerWidth < textWidth) {
+      scale = Math.min(
+        Math.sqrt(
+          Math.abs(
+            Math.pow(R, 2) /
+              (Math.pow(textWidth / 2, 2) + Math.pow(textHeight, 2))
+          )
+        ),
+        1
+      );
+    }
+    var textStyleStr = "width:".concat(containerWidth, "px;");
+    return '<div style="'
+      .concat(textStyleStr, ";font-size:")
+      .concat(scale, "em;line-height:")
+      .concat(scale < 1 ? 1 : "inherit", ';">')
+      .concat(text, "</div>");
+  };
 
-  const data = {
-    labels: category,
-    datasets: [
-      {
-        data: values,
-        backgroundColor: [
-          "#F7464A",
-          "#46BFBD",
-          "#FDB45C",
-          "#949FB1",
-          "#4D5360",
-        ],
-        borderWidth: 1,
-        hoverOffset: 30,
+  const getConfig = (PieData,PieType,PieColor) => {
+  return {
+    appendPadding: 0,
+    data: PieData,
+    angleField: "value",
+    colorField: "type",
+    radius: 1,
+    innerRadius: 0.6,
+    textAlign: "center",
+    label: {
+      type: "inner",
+      offset: "-50%",
+      content: function content(_ref) {
+        var percent = _ref.percent;
+        return "".concat((percent * 100).toFixed(0), "%");
       },
+      style: {
+        fontSize: 14,
+        textAlign: "center",
+      },
+    },
+    statistic: {
+      title: {
+        offsetY: -4,
+        style: { fontSize: "17px", fontWeight: "600", color: PieColor},
+        customHtml: function customHtml(container, view, datum) {
+          var _container$getBoundin = container.getBoundingClientRect(),
+            width = _container$getBoundin.width,
+            height = _container$getBoundin.height;
+          var d = Math.sqrt(Math.pow(width / 2, 2) + Math.pow(height / 2, 2));
+          var text = datum ? datum.type : PieType;
+          return renderStatistic(d, text, { fontSize: 28 });
+        },
+      },
+      content: {
+        offsetY: 4,
+        style: { fontSize: "15px", lineHeight: "20px", fontWeight: "400" },
+        customHtml: function customHtml(container, view, datum, data) {
+          var _container$getBoundin2 = container.getBoundingClientRect(),
+            width = _container$getBoundin2.width;
+          return renderStatistic(width, "Category", { fontSize: 32 });
+        },
+      },
+    },
+    interactions: [
+      { type: "element-single-selected" },
+      { type: "element-active" },
     ],
   };
-  return data;
-}
-
-const options1 = {
-
-  cutoutPercentage:75,
-  responsive: true,
-  legend: {
-    display: false,
-    position: "left",
-    labels: {
-      fontSize: 12,
-      fontColor: "#6D7278",
-      fontFamily: "kanit light"
-    }
   }
-};
 
-function DoughnutChart(props) {
-  const Data = getData(props.type,props.xtype,props.dateFormat,props.transactions);
-  const incomeData = getChartData(Data.incomePerCatogories);
-  const expenseData = getChartData(Data.expensePerCatogories);
+  const IncomeConfig = getConfig(props.Data.IncomePieData,'Income','blue');
+  const ExpenseConfig = getConfig(props.Data.ExpensePieData,'Expense','green');
 
   return (
     <div>
-      <Row>
+      <Row style={{ padding: 5 }}>
         <Col span={12}>
-            <div className='category-text' ><span>Income</span><br></br><span>Category</span></div>
-          <Doughnut data={incomeData} width={200} options={options1} />
+          <Pie height={200} {...IncomeConfig} />;
         </Col>
         <Col span={12}>
-        <div className='category-text' ><span>Expense</span><br></br><span>Category</span></div>
-        <Doughnut data={expenseData} width={200} options={options1} />
+          <Pie height={200} {...ExpenseConfig} />;
         </Col>
       </Row>
     </div>
   );
-}
+};
 
-function mapStateToProps(state) {
-  return {
-    transactions: state.transaction.transactions,
-  };
-}
-
-export default connect(mapStateToProps)(DoughnutChart);
+export default DoughnutChart;

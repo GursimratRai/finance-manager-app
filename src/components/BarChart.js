@@ -1,43 +1,22 @@
 import React from "react";
-import { connect } from "react-redux";
-import { Bar } from "react-chartjs-2";
-import { getData } from "../helpers/utils";
-
-function getChartData(Data) {
-  const data = {
-    labels: Data.dates,
-    datasets: [
-      {
-        label: "Income",
-        data: Data.incomeData,
-        backgroundColor:Data.incomeBackgroundColor,
-        borderWidth: 1,
-      },
-      {
-        label: "Expense",
-        data: Data.expenseData,
-        backgroundColor: Data.expenseBackgroundColor,
-        borderWidth: 1,
-      },
-    ],
-  };
-  return data;
-}
+import { Column } from '@ant-design/charts';
 
 const BarChart = (props) => {
-  const Data = getData(props.type,props.xtype,props.dateFormat,props.transactions);
-  const chartData = getChartData(Data);
+
+const config = {
+  height:230,
+  data: props.Data.BarData,
+  isGroup: true,
+  xField: 'x',
+  yField: 'y',
+  seriesField: 'name',
+};
+
   return (
     <div>
-      <Bar width={100} height={25} data={chartData} />
+      <Column {...config} />
     </div>
   );
 };
 
-function mapStateToProps(state) {
-  return {
-    transactions: state.transaction.transactions,
-  };
-}
-
-export default connect(mapStateToProps)(BarChart);
+export default BarChart;

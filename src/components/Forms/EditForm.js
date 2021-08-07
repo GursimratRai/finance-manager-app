@@ -1,24 +1,20 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { DatePicker, Select, Modal } from "antd";
-import moment from "moment";
-import { updateTransaction } from "../actions/transaction";
 
+//Use momentJs for time and formatting the dates
+import moment from "moment";
+
+//Action for Updating / Edit in the transaction
+import { updateTransaction } from "../../actions/transaction";
+
+//Custom React Hook for inputing form data and handling the change
+import {useFormInput} from '../../helpers/utils';
+
+//Use ant design components
+import { DatePicker, Select, Modal } from "antd";
 const { Option } = Select;
 
-function useFormInput(initialValue) {
-  const [value, setValue] = useState(initialValue);
-
-  function handleChange(e) {
-    setValue(e.target.value);
-  }
-
-  return {
-    value,
-    onChange: handleChange,
-  };
-}
-
+//Form for Editing in the transaction
 const EditForm = (props) => {
   const { values, onSubmit, onCancel, visible } = props;
   const source = useFormInput(values.source);
@@ -26,16 +22,16 @@ const EditForm = (props) => {
   const description = useFormInput(values.description);
   const [date, setDate] = useState(moment(values.date));
   const [category, setCategory] = useState(values.category);
-  
   const dateFormat = "DD/MM/YYYY";
   const dispatch = useDispatch();
 
+  //function for handling submission of the form
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
     if (source && amount && date && category) {
       dispatch(
-        updateTransaction(values.id,{
+        updateTransaction(values.id, {
           type: values.type,
           source: source.value,
           amount: amount.value,
@@ -48,9 +44,11 @@ const EditForm = (props) => {
     }
   };
 
+  //function for handling the change in the Category
   function handleCategoryChange(value) {
     setCategory(value);
   }
+  //function for handling the change in the date
   function handleDateChange(value) {
     setDate(moment(value));
   }
@@ -136,9 +134,7 @@ const EditForm = (props) => {
           <button type="button" onClick={onCancel}>
             Cancel
           </button>
-            <button type="Submit">
-              Update
-            </button>
+          <button type="Submit">Update</button>
         </div>
       </form>
     </Modal>

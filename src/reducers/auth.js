@@ -9,6 +9,7 @@ import {
   LOGOUT
 } from "../actions/actionTypes";
 
+//intial Authentication state
 const initilAuthState = {
   user: {},
   error: null,

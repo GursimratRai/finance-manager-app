@@ -11,6 +11,7 @@ import {
   UPDATE_TRANSACTION_FAILED,
 } from "../actions/actionTypes";
 
+//initial transaction state
 const initialTransactionState = {
   transactions: [],
   error: null,

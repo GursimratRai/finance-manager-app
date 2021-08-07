@@ -1,8 +1,11 @@
 import React from "react";
+
+//Use bar chart of ant design charts
 import { Column } from '@ant-design/charts';
 
 const BarChart = (props) => {
 
+  //configuration for the bar chart
 const config = {
   height:230,
   data: props.Data.BarData,

@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import {connect} from 'react-redux';
-import { logoutUser } from "../actions/auth";
 
+//Action for logging user out / sign out
+import { logoutUser } from "../../actions/auth";
+
+//components
 import { Menu, Layout } from "antd";
-
 const { Sider } = Layout;
 
 class SideMenu extends Component {
@@ -11,12 +13,14 @@ class SideMenu extends Component {
     collapsed: true,
   };
 
+  //function for toggling side menu
   toggle = () => {
     this.setState({
       collapsed: !this.state.collapsed,
     });
   };
 
+  //function for logging out the user
   logOut = () => {
     localStorage.removeItem("token");
     this.props.dispatch(logoutUser());
@@ -64,4 +68,5 @@ class SideMenu extends Component {
   }
 }
 
+//connect to redux store for using dispatch action
 export default connect()(SideMenu);

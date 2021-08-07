@@ -2,10 +2,14 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
-import { SideMenu, Calendar, Stats } from "./";
+//use ant design component
 import { Layout} from "antd";
 
-import "../assets/css/Home.css";
+//Components
+import { SideMenu, Calendar, Stats } from "../";
+
+//Css file for styling
+import "../../assets/css/Home.css";
 
 const { Content } = Layout;
 
@@ -14,6 +18,7 @@ class Home extends Component {
     select: "1",
   };
 
+  //function for handling selection of an option from side menu
   handleMenuSelect = (option) => {
     this.setState({
       select: option,
@@ -23,6 +28,8 @@ class Home extends Component {
   render() {
     const { select } = this.state;
     const { isLoggedIn } = this.props.auth;
+
+    //If user is not logged in redirect to login page
     if (!isLoggedIn) {
       return <Redirect to="/" />;
     }
@@ -34,7 +41,6 @@ class Home extends Component {
           <Content className="site-layout-background">
             {select === "1" && <Calendar />}
             {select === "2" && <Stats />}
-            {/* {select === "3" && <Settings />} */}
           </Content>
         </Layout>
       </Layout>
@@ -42,10 +48,12 @@ class Home extends Component {
   }
 }
 
+//function for mapping the state to props which can then pass as an argument to the component
 function mapStateToProps(state) {
   return {
     auth: state.auth,
   };
 }
 
+//connecting component to redux store
 export default connect(mapStateToProps)(Home);

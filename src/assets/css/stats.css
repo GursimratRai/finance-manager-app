@@ -1,3 +1,4 @@
+/********************************* outermost container **********************/
 .statistic {
   background-color: whitesmoke;
   border-radius: 12px;
@@ -5,30 +6,28 @@
   padding: 10px;
   text-align: center;
 }
+
+/*********************************** Title *******************************/
 .ant-statistic-title{
   color:white !important;
 }
+
+/******************************** Total Earning Statistic ********************/
 .earning{
   box-shadow:5px 10px 15px 1px rgb(177, 176, 176);
   background: linear-gradient(-90deg,rgb(8, 48, 179),rgb(108, 152, 233));
 }
 
+/**************************** Total Spending Statistic ***********************/
 .spending{
   box-shadow:5px 10px 15px 1px rgb(177, 176, 176);
   background: linear-gradient(-90deg,rgb(63, 151, 12),rgb(0, 255, 0));
 }
+
+/******************************** Savings Statistic **************************/
 .saving {
   margin: auto;
   box-shadow:5px 10px 15px 1px rgb(177, 176, 176);
   background: linear-gradient(-90deg,rgb(131, 30, 4),rgb(240, 64, 64));
 }
 
-.category-text {
-  position: absolute;
-  top: 35%;
-  left: 35%;
-  color: rgb(157, 157, 243);
-  font-weight: 700;
-  font-size: 1.1rem;
-  text-align: center;
-}

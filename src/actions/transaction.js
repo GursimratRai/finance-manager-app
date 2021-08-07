@@ -11,11 +11,14 @@ import {
   UPDATE_TRANSACTION_FAILED,
 } from "./actionTypes";
 
+//Helpers
 import { APIUrls } from "../helpers/urls";
 import { getFormBody } from "../helpers/utils";
 import { getAuthTokenFromLocalStorage } from "../helpers/utils";
+//ant design component
 import { notification } from "antd";
 
+//update action
 export function updateTransactions(transactions) {
   return {
     type: UPDATE_TRANSACTIONS,
@@ -23,6 +26,7 @@ export function updateTransactions(transactions) {
   };
 }
 
+//function for fetching all the transaction list / data from the database
 export function fetchTransactionList() {
   return (dispatch) => {
     const url = APIUrls.fetchTransactionList();
@@ -42,12 +46,14 @@ export function fetchTransactionList() {
   };
 }
 
+//Start the transaction
 export function startTransaction() {
   return {
     type: TRANSACTION_START,
   };
 }
 
+//If transaction failed
 export function transactionFailed(errorMessage) {
   return {
     type: TRANSACTION_FAILED,
@@ -55,6 +61,7 @@ export function transactionFailed(errorMessage) {
   };
 }
 
+//If transaction is complete i.e. success
 export function transactionSuccess(transaction, error) {
   return {
     type: TRANSACTION_SUCCESS,
@@ -63,6 +70,7 @@ export function transactionSuccess(transaction, error) {
   };
 }
 
+//Sending Api Request  for creating a new transaction in the database
 export function createTransaction(content) {
   return (dispatch) => {
     dispatch(startTransaction());
@@ -102,11 +110,13 @@ export function createTransaction(content) {
   };
 }
 
+//Start action for deleting a transaction 
 export function startDelete() {
   return {
     type: DELETE_TRANSACTION_START,
   };
 }
+//If the transaction is deleted from the database
 export function deleteSuccess(ids, error) {
   return {
     type: DELETE_TRANSACTION_SUCCESS,
@@ -115,6 +125,7 @@ export function deleteSuccess(ids, error) {
   };
 }
 
+//If delete request is not complete
 export function deleteFailed(error) {
   return {
     type: DELETE_TRANSACTION_FAILED,
@@ -122,6 +133,7 @@ export function deleteFailed(error) {
   };
 }
 
+//Sending an Api Request for deleting the transactions from the database
 export function deleteTransaction(ids) {
   return (dispatch) => {
     dispatch(startDelete());
@@ -162,12 +174,14 @@ export function deleteTransaction(ids) {
   };
 }
 
+//Start action for updating a transaction
 export function startUpdate() {
   return {
     type: UPDATE_TRANSACTION_START,
   };
 }
 
+//If Update Request is complete
 export function updateSuccess(transaction,error) {
   return {
     type: UPDATE_TRANSACTION_SUCCESS,
@@ -175,7 +189,7 @@ export function updateSuccess(transaction,error) {
     error,
   };
 }
-
+//If update reqest is not complete or denied 
 export function updateFailed(error) {
   return {
     type: UPDATE_TRANSACTION_FAILED,
@@ -183,6 +197,7 @@ export function updateFailed(error) {
   };
 }
 
+//Sending an Api Request for updating the transaction data with new data
 export function updateTransaction(id, content) {
 
   return (dispatch) => {

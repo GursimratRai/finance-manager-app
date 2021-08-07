@@ -1,43 +1,40 @@
 import React, { useState } from "react";
-import { connect,useDispatch } from "react-redux";
-import { DatePicker, Select } from "antd";
-import moment from "moment";
-import { createTransaction } from "../actions/transaction";
+import { connect, useDispatch } from "react-redux";
 
+//Use MomentJs for date and time
+import moment from "moment";
+
+//Action for creating new transaction 
+import { createTransaction } from "../../actions/transaction";
+
+//Custom React Hook for inputing form data and handling the change
+import {useFormInput} from '../../helpers/utils';
+
+//Use ant design component
+import { DatePicker, Select } from "antd";
 const { Option } = Select;
 
-function useFormInput(initialValue) {
-  const [value, setValue] = useState(initialValue);
-
-  function handleChange(e) {
-    setValue(e.target.value);
-  }
-
-  return {
-    value,
-    onChange: handleChange,
-  };
-}
-
-const ExpenseForm = (props) => {
+//Form for getting income / earning related data
+const IncomeForm = (props) => {
   const source = useFormInput("");
   const amount = useFormInput("");
   const description = useFormInput("");
   const [date, setDate] = useState(props.date);
-  const [category, setCategory] = useState("food");
+  const [category, setCategory] = useState("salary");
   const { onCancel, onSubmit } = props;
   const { inProgress } = props.transaction;
 
   const dateFormat = "DD/MM/YYYY";
   const dispatch = useDispatch();
 
+  //function for handling the submission of the form
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
     if (source && amount && date && category) {
       dispatch(
         createTransaction({
-          type:'Expense',
+          type:'Income',
           source: source.value,
           amount: amount.value,
           description: description.value,
@@ -49,9 +46,11 @@ const ExpenseForm = (props) => {
     }
   };
 
+  //function for handling change in category in the form
   function handleCategoryChange(value) {
     setCategory(value);
   }
+  //funciton for handling change in date in the form
   function handleDateChange(value) {
     setDate(moment(value));
   }
@@ -77,21 +76,17 @@ const ExpenseForm = (props) => {
         <div className="modal-form-field">
           <h3>Category:</h3>
           <Select
-            defaultValue="food"
+            defaultValue="salary"
             style={{ width: 120 }}
             onChange={handleCategoryChange}
           >
-            <Option value="food">Food</Option>
-            <Option value="social life">Social Life</Option>
-            <Option value="self-development">Self Development</Option>
-            <Option value="transportation">Transportation</Option>
-            <Option value="Culture">Culture</Option>
-            <Option value="household">Household</Option>
-            <Option value="apparel">Apparel</Option>
-            <Option value="beauty">Beauty</Option>
-            <Option value="health">Health</Option>
-            <Option value="education">Education</Option>
-            <Option value="gift">Gift</Option>
+            <Option value="salary">Salary</Option>
+            <Option value="equities">Equities</Option>
+            <Option value="personal savings">Personal Savings</Option>
+            <Option value="investment">Investment</Option>
+            <Option value="pensions">Pension</Option>
+            <Option value="account transfer">Account Transfer</Option>
+            <Option value="bonus">Bonus</Option>
             <Option value="others">Others</Option>
           </Select>
         </div>
@@ -129,10 +124,12 @@ const ExpenseForm = (props) => {
   );
 };
 
+//function for mapping the state to props which can then pass as an argument to the component
 function mapStateToProps(state) {
   return {
     transaction: state.transaction,
   };
 }
 
-export default connect(mapStateToProps)(ExpenseForm);
+//connecting component to redux store
+export default connect(mapStateToProps)(IncomeForm);

@@ -1,11 +1,17 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+
+//Use ant design component
 import { Radio, Button, Row, Col } from "antd";
 
-import "../assets/css/stats.css";
-import { getData } from "../helpers/utils";
-import { BarChart, StatChart, DoughnutChart } from "./";
+//Css file for styling
+import "../../assets/css/stats.css";
 
+//Action for getting charts data
+import { getData } from "../../helpers/utils";
+import { BarChart, StatChart, DoughnutChart } from "..";
+
+//Switch 
 const options = [
   { label: "Week", value: "week" },
   { label: "Month", value: "month" },

@@ -1,18 +1,20 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import {Provider} from 'react-redux';
-import './index.css';
-import App from './components/App';
-import {configureStore} from './store';
+import React from "react";
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
 
+//css for styling.
+import "./index.css";
+
+//importing App component from components folder.
+import App from "./components/App";
+
+//Connecting redux store.
+import { configureStore } from "./store";
 const store = configureStore();
-console.log('store',store);
 
 ReactDOM.render(
   <Provider store={store}>
-
     <App />
-    
   </Provider>,
-  document.getElementById('root')
+  document.getElementById("root")
 );

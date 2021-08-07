@@ -2,7 +2,7 @@ import { combineReducers } from "redux";
 import auth from './auth';
 import transaction from './transaction';
 
-//used to combine many reducers.
+//Combining all the Reducers.
 export default combineReducers({
   auth,
   transaction    

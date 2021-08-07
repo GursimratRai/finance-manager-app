@@ -1,20 +1,26 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
+//Use Full Calendar component of react
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 
+//Use MomentJs for date and time
 import moment from "moment";
-import { fetchTransactionList } from "../actions/transaction";
+
+//Action for fetching the transaction list from the database
+import { fetchTransactionList } from "../../actions/transaction";
+
+//Use ant design compoent
 import { Badge } from "antd";
-import { ShowTransaction } from "./";
+import { ShowTransaction } from "..";
 
-import "antd/dist/antd.css";
-import "../assets/css/Calender.css";
-import "../assets/css/Settings.css";
+//Css file for styling
+import "../../assets/css/Calender.css";
 
-function renderEventContent(eventInfo) {
+//Customizing Date Cell of the calendar and adding data in the cell
+function CustomDateCell(eventInfo) {
   eventInfo.backgroundColor = "transparent";
   eventInfo.borderColor = "transparent";
 
@@ -34,6 +40,12 @@ class Calendar extends Component {
     visible: false,
   };
 
+  //Fetch all the transaction list / data from the database
+  componentDidMount() {
+    this.props.dispatch(fetchTransactionList());
+  }
+
+  //function for handling Click on the date cell of the calendar
   handleDateClick = (arg) => {
     this.setState({
       date: moment(arg.dateStr),
@@ -41,25 +53,26 @@ class Calendar extends Component {
     });
   };
 
+  //function for handling cancellation action.
+  //close the modal
   onCancel = () => {
     this.setState({
       visible: false,
     });
   };
 
+  //function for handling submission action
   onSubmit = () => {
     this.setState({
       visible: false,
     });
   };
 
-  componentDidMount() {
-    this.props.dispatch(fetchTransactionList());
-  }
-
   render() {
     const { date, visible } = this.state;
     const { transactions } = this.props;
+
+    //function for getting all the transactions for a particular date
     function getTransactionData(value) {
       let list = [];
 
@@ -78,31 +91,32 @@ class Calendar extends Component {
       return list || [];
     }
 
-    function getEventData() {
-      let incomeData = {};
-      let expenseData = {};
+    //function for calculating total sum of income/expense transactions w.r.t date
+    function getDateCellData() {
+
+      let incomeData = {}; // { date:amount }
+      let expenseData = {}; // { date:amount }
+
       transactions.map((transaction) => {
-        if (transaction.type === "Income") {
-          if (!incomeData[moment(transaction.date).format("YYYY-MM-DD")]) {
-            incomeData[moment(transaction.date).format("YYYY-MM-DD")] =
-              transaction.amount;
+        let type = transaction.type;
+        let date = moment(transaction.date).format("YYYY-MM-DD");
+        let amount = transaction.amount;
+
+        if (type === "Income") {
+          if (!incomeData[date]) {
+            //if date is not found in incomeData
+            incomeData[date] = amount;
           } else {
-            let newAmount =
-              incomeData[moment(transaction.date).format("YYYY-MM-DD")] +
-              transaction.amount;
-            incomeData[moment(transaction.date).format("YYYY-MM-DD")] =
-              newAmount;
+            //if date found in incomeData
+            incomeData[date] = incomeData[date] + amount;
           }
-        } else if (transaction.type === "Expense") {
-          if (!expenseData[moment(transaction.date).format("YYYY-MM-DD")]) {
-            expenseData[moment(transaction.date).format("YYYY-MM-DD")] =
-              transaction.amount;
+        } else if (type === "Expense") {
+          if (!expenseData[date]) {
+            //if date is not found in expenseData
+            expenseData[date] = amount;
           } else {
-            let newAmount =
-              expenseData[moment(transaction.date).format("YYYY-MM-DD")] +
-              transaction.amount;
-            expenseData[moment(transaction.date).format("YYYY-MM-DD")] =
-              newAmount;
+            //if date is found in expenseData
+            expenseData[date] = expenseData[date] + amount;
           }
         }
         return transaction;
@@ -110,10 +124,12 @@ class Calendar extends Component {
 
       let list = [];
 
+      //format the income data and add to list
       for (let item of Object.keys(expenseData)) {
         list.push({ type: "error", title: expenseData[item], date: item });
       }
 
+      //formatting the expense data and add to list.
       for (let item of Object.keys(incomeData)) {
         list.push({ type: "success", title: incomeData[item], date: item });
       }
@@ -126,7 +142,6 @@ class Calendar extends Component {
         <FullCalendar
           plugins={[dayGridPlugin, interactionPlugin]}
           initialView="dayGridMonth"
-          // width={"95vw"}
           height={"95vh"}
           headerToolbar={{
             left: "prev",
@@ -134,8 +149,8 @@ class Calendar extends Component {
             right: "next",
           }}
           dateClick={this.handleDateClick}
-          eventContent={renderEventContent}
-          events={getEventData()}
+          eventContent={CustomDateCell}
+          events={getDateCellData()}
         />
         {visible && (
           <ShowTransaction
@@ -151,10 +166,12 @@ class Calendar extends Component {
   }
 }
 
+//function for mapping the state to props which can then pass as an argument to the component
 function mapStateToProps(state) {
   return {
     transactions: state.transaction.transactions,
   };
 }
 
+//connecting component to redux store
 export default connect(mapStateToProps)(Calendar);

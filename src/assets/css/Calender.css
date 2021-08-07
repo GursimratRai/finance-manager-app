@@ -1,42 +1,39 @@
-.events {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+body{
+  line-height: 1 !important;
 }
 
-.ant-picker-calendar-full .ant-picker-panel .ant-picker-calendar-date-content {
-  height: 2.6rem;
-  line-height: 1;
-  text-align: right;
+/************************* Date Cell of Full Calendar *****************/
+.fc .fc-daygrid-day-events {
+margin: 0px;
+}
+.fc .fc-daygrid-day-number{
+  padding:5px;
+}
+.fc .fc-daygrid-event{
+  margin-top:0px;
 }
 
-.events .ant-badge-status {
-  overflow: hidden;
-  white-space: nowrap;
-  width: 100%;
-  text-overflow: ellipsis;
-  font-size: 12px;
+/**************************** Grid ******************************/
+.fc-theme-standard td,
+.fc-theme-standard th,
+.fc-theme-standard .fc-scrollgrid {
+border: 0px !important;
 }
 
-.ant-badge-status-text {
-  margin-left: 8px;
-  color: rgba(0, 0, 0, 0.85);
-  font-size: 12px;
+.fc .fc-daygrid-day-frame {
+width: 8rem;
+height: 4rem;
+overflow: scroll;
+margin: 0px 4px;
+border-top: 2px solid #f0f0f0;
+}
+.fc .fc-daygrid-day-frame::-webkit-scrollbar {
+  display:none;
 }
 
-.notes-month {
-  text-align: center;
-  font-size: 28px;
+.fc .fc-daygrid-day-frame:hover {
+background-color: whitesmoke;
 }
-.notes-month section {
-  font-size: 28px;
-}
-
-.notes-month {
-  font-size: 28px;
-  text-align: center;
-}
-
-.notes-month section {
-  font-size: 28px;
+.fc .fc-daygrid-day.fc-day-today {
+background-color: #dbedfd;
 }

@@ -1,17 +1,18 @@
-import Login from "./Login";
-import Signup from "./Signup";
-import Home from "./Home";
+import Login from "./Forms/Login";
+import Signup from "./Forms/Signup";
+import Home from "./Home/Home";
 import Page404 from "./Page404";
-import SideMenu from "./SideMenu";
-import Calendar from "./Calendar";
-import Stats from "./Stats";
-import Transaction from "./Transaction";
-import IncomeForm from "./IncomeForm";
-import ExpenseForm from "./ExpenseForm";
-import ShowTransaction from './ShowTransaction';
-import BarChart from "./BarChart";
-import DoughnutChart from "./DoughnutChart";
-import StatChart from './StatChart';
+import SideMenu from "./Home/SideMenu";
+import Calendar from "./Home/Calendar";
+import Stats from "./Stats/Stats";
+import Transaction from "./Home/Transaction";
+import EditForm from './Forms/EditForm';
+import IncomeForm from "./Forms/IncomeForm";
+import ExpenseForm from "./Forms/ExpenseForm";
+import ShowTransaction from './Home/ShowTransaction';
+import BarChart from "./Stats/BarChart";
+import DoughnutChart from "./Stats/DoughnutChart";
+import StatChart from './Stats/StatChart';
 
 export {
   Login,
@@ -22,6 +23,7 @@ export {
   Calendar,
   Stats,
   Transaction,
+  EditForm,
   IncomeForm,
   ExpenseForm,
   ShowTransaction,

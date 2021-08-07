@@ -1,8 +1,13 @@
 import React from "react";
+
+//Use ant design component
 import { Row, Col } from "antd";
+//Use Doughnut chart of ant design charts
 import { Pie, measureTextWidth } from "@ant-design/charts";
 
 const DoughnutChart = (props) => {
+
+  //Custom function for rendering text in the middle 
   const renderStatistic = (containerWidth, text, style) => {
     var _measureTextWidth = (0, measureTextWidth)(text, style),
       textWidth = _measureTextWidth.width,
@@ -28,6 +33,7 @@ const DoughnutChart = (props) => {
       .concat(text, "</div>");
   };
 
+  //configuration for the doughnut chart
   const getConfig = (PieData,PieType,PieColor) => {
   return {
     appendPadding: 0,
@@ -79,7 +85,9 @@ const DoughnutChart = (props) => {
   };
   }
 
+  //Configuration for Income Categories 
   const IncomeConfig = getConfig(props.Data.IncomePieData,'Income','blue');
+  //Configuration for Expense Categories
   const ExpenseConfig = getConfig(props.Data.ExpensePieData,'Expense','green');
 
   return (

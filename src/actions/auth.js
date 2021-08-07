@@ -9,14 +9,17 @@ import {
   AUTHENTICATE_USER,
   LOGOUT,
 } from "./actionTypes";
+
+//function for encoding the form data
 import { getFormBody } from "../helpers/utils";
 
+//Start action for login
 export function startLogin() {
   return {
     type: LOGIN_START,
   };
 }
-
+//If Logging in the user Failed
 export function loginFailed(errorMessage) {
   return {
     type: LOGIN_FAILED,
@@ -24,6 +27,7 @@ export function loginFailed(errorMessage) {
   };
 }
 
+//If the user is successfully log in 
 export function loginSuccess(user) {
   return {
     type: LOGIN_SUCCESS,
@@ -31,6 +35,7 @@ export function loginSuccess(user) {
   };
 }
 
+//Sending an Api Request for checking the credentials of the user.
 export function login(email, password) {
   return (dispatch) => {
     dispatch(startLogin());
@@ -58,12 +63,14 @@ export function login(email, password) {
   };
 }
 
+//Start action for sign up
 export function signupStart() {
   return {
     type: SIGNUP_START,
   };
 }
 
+//If new user account is successfully created
 export function signupSuccess(successMessage) {
   return {
     type: SIGNUP_SUCCESS,
@@ -71,6 +78,7 @@ export function signupSuccess(successMessage) {
   };
 }
 
+//If there is an error in creating the user account
 export function signupFailed(errorMessage) {
   return {
     type: SIGNUP_FAILED,
@@ -78,6 +86,7 @@ export function signupFailed(errorMessage) {
   };
 }
 
+//Sending an Api Request for Creating a new account
 export function signup(name,email,password,confirmPassword) {
   console.log('signup',name,email,password,confirmPassword);
   return (dispatch) => {
@@ -108,6 +117,7 @@ export function signup(name,email,password,confirmPassword) {
   };
 }
 
+//Action for authenticating the logged in user
 export function authenticateUser (user){
   return {
     type:AUTHENTICATE_USER,
@@ -115,6 +125,7 @@ export function authenticateUser (user){
   }
 }
 
+//Action for logging out the user
 export function logoutUser(user){
   return {
     type:LOGOUT

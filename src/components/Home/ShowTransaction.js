@@ -1,14 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { Modal, Button, Collapse, Empty } from "antd";
-import moment from "moment";
-import { Transaction } from "./";
-import "../assets/css/ShowTransaction.css";
 import { useDispatch } from "react-redux";
-import { deleteTransaction } from "../actions/transaction";
-import EditForm from "./EditForm";
+
+//Use MomentJs for date and time
+import moment from "moment";
+
+//Action for deleting a transaction
+import { deleteTransaction } from "../../actions/transaction";
+
+//Components
+import { Modal, Button, Collapse, Empty } from "antd";
+import { Transaction, EditForm } from "..";
+
+//Css file for styling
+import "../../assets/css/ShowTransaction.css";
 
 const { Panel } = Collapse;
 
+//showing the transaction list for the selected date
 const ShowTransaction = (props) => {
   const { onCancel, visible, date, list } = props;
   const [show, setShow] = useState(false);
@@ -17,10 +25,12 @@ const ShowTransaction = (props) => {
   const [listState, setListState] = useState([]);
   const dispatch = useDispatch();
 
+  //Updating the state when change in list occurs i.e. add/delete/update
   useEffect(() => {
-      getListState(list);
+    getListState(list);
   }, [list]);
 
+  //function for mapping the list to state
   const getListState = (list) => {
     setListState(
       list.map((item) => {
@@ -38,20 +48,24 @@ const ShowTransaction = (props) => {
     );
   };
 
+  //handling close action
   const onClose = () => {
     setShow(false);
     setEdit(false);
   };
 
+  //handling submit action
   const onSubmit = () => {
     setShow(false);
     setEdit(false);
   };
 
+  //show the modal contains the transaction list for the selected date
   const showTransaction = () => {
     setShow(true);
   };
 
+  //function for handling the change in checkbox
   const handleChange = (e, id) => {
     let value = e.target.checked;
     e.stopPropagation();
@@ -65,6 +79,7 @@ const ShowTransaction = (props) => {
     );
   };
 
+  //function for handling multiple deletion.
   const handleDelete = () => {
     let arrayids = [];
     listState.forEach((item) => {
@@ -75,6 +90,7 @@ const ShowTransaction = (props) => {
     dispatch(deleteTransaction({ _id: arrayids }));
   };
 
+  //function for showing and setting pre-data in Edit form
   const handleEdit = (e, id) => {
     e.stopPropagation();
     listState.map((item) => {
@@ -86,6 +102,7 @@ const ShowTransaction = (props) => {
     });
   };
 
+  //adding checkbox on Collapse's panel
   const genExtra = (select, id) => (
     <input
       id="checbox"

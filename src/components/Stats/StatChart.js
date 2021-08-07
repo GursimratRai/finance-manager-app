@@ -1,6 +1,9 @@
 import React from "react";
+
+//Use ant design component
 import { Row, Col, Statistic } from "antd";
 
+//Statistic for total earning , total spending and savings
 const StatChart = (props) => {
   const Data = props.Data;
   return (

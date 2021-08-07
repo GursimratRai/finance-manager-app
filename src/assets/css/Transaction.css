@@ -1,5 +1,6 @@
+/***************************** Outermost Container ***********************/
 .ant-modal-body {
-  padding: 0px;
+  padding: 0px !important;
 }
 
 .modal-form-container {
@@ -9,12 +10,18 @@
   border-bottom: 1px solid lightgrey;
   background-color: rgb(99, 235, 217);
 }
+
+/************************************ Title ******************************/
 .ant-modal-title {
-  color: rgb(223, 231, 229);
+  color: rgb(223, 231, 229) !important;
 }
+
+/************************************ Header *******************************/
 .ant-modal-header {
-  background-image: linear-gradient(to bottom right, #0c554e, #019e8e);
+  background-image: linear-gradient(to bottom right, #0c554e, #019e8e) !important;
 }
+
+/***************************** Income / Expense option ********************/
 .modal-form-option {
   width: 50%;
   padding: 5px;
@@ -25,6 +32,7 @@
   background-color: #0a835f;
 }
 
+/********************************* Form in Modal *****************************/
 .modal-form {
   width: 100%;
   display: flex;
@@ -74,26 +82,26 @@
   color: white;
 }
 .modal-form-button button:hover {
-  cursor: pointer;
+  cursor: pointer !important;
 }
 
 .modal-form-button button:disabled {
-  cursor: not-allowed;
+  cursor: not-allowed !important;
 }
 
 .ant-picker-input input:hover {
-  border: 1px solid transparent;
+  border: 1px solid transparent !important;
 }
 
 .ant-select:not(.ant-select-customize-input) .ant-select-selector {
-  border: 1px solid transparent;
+  border: 1px solid transparent !important;
 }
 .ant-select:not(.ant-select-customize-input):hover .ant-select-selector {
-  border: 1px solid transparent;
+  border: 1px solid transparent !important;
 }
 
 .ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input)
   .ant-select-selector {
-  border: 1px solid transparent;
-  box-shadow: none;
+  border: 1px solid transparent !important;
+  box-shadow: none !important;
 }

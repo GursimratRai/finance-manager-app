@@ -5,9 +5,22 @@
   padding: 10px;
   text-align: center;
 }
+.ant-statistic-title{
+  color:white !important;
+}
+.earning{
+  box-shadow:5px 10px 15px 1px rgb(177, 176, 176);
+  background: linear-gradient(-90deg,rgb(8, 48, 179),rgb(108, 152, 233));
+}
 
+.spending{
+  box-shadow:5px 10px 15px 1px rgb(177, 176, 176);
+  background: linear-gradient(-90deg,rgb(63, 151, 12),rgb(0, 255, 0));
+}
 .saving {
   margin: auto;
+  box-shadow:5px 10px 15px 1px rgb(177, 176, 176);
+  background: linear-gradient(-90deg,rgb(131, 30, 4),rgb(240, 64, 64));
 }
 
 .category-text {

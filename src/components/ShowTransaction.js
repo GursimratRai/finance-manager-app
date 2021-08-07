@@ -18,7 +18,7 @@ const ShowTransaction = (props) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    getListState(list);
+      getListState(list);
   }, [list]);
 
   const getListState = (list) => {

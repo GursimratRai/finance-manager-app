@@ -42,9 +42,9 @@ const Stats = (props) => {
   };
 
   return (
-    <div style={{ padding: 10 }}>
+    <div style={{ background:'white',padding: 10 }}>
       <Row style={{ padding: 5 }}>
-        <Col span={19}>
+        <Col span={1}>
           <Button
             type="primary"
             onClick={(e) => {
@@ -55,6 +55,8 @@ const Stats = (props) => {
           >
             <i className="fas fa-angle-left"></i>
           </Button>
+          </Col>
+          <Col span={1}>
           <Button
             type="primary"
             onClick={(e) => {
@@ -66,7 +68,7 @@ const Stats = (props) => {
             <i className="fas fa-angle-right"></i>
           </Button>
         </Col>
-        <Col span={5}>
+        <Col style={{textAlign:'right'}} span={22}>
           <Radio.Group
             options={options}
             onChange={onChange}
@@ -80,7 +82,7 @@ const Stats = (props) => {
           <BarChart Data={Data} />
         </Col>
       </Row>
-      <Row>
+      <Row style={{marginTop:20}}>
         <Col span={10}>
           <StatChart Data={Data} />
         </Col>

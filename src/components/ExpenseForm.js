@@ -63,6 +63,7 @@ const ExpenseForm = (props) => {
           <h3>Amount:</h3>
           <input
             type="Number"
+            min="0"
             placeholder="Enter Amount"
             required
             {...amount}

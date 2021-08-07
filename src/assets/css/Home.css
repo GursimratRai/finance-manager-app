@@ -1,3 +1,39 @@
-.ant-layout.site-layout{
-    background: white;
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+  background-color: white !important;
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+}
+
+.ant-menu-vertical .ant-menu-item:not(:last-child),
+.ant-menu-vertical-left .ant-menu-item:not(:last-child),
+.ant-menu-vertical-right .ant-menu-item:not(:last-child),
+.ant-menu-inline .ant-menu-item:not(:last-child) {
+  margin: 0px !important;
+}
+
+.ant-menu-item,
+.ant-menu-submenu-title {
+  transition: none;
+}
+
+.ant-menu-vertical .ant-menu-item::after,
+.ant-menu-vertical-left .ant-menu-item::after,
+.ant-menu-vertical-right .ant-menu-item::after,
+.ant-menu-inline .ant-menu-item::after {
+  border-right: 0px !important;
+}
+
+.side-menu-logo {
+  width: 40px;
+  height: 40px;
+  margin: auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-radius: 50%;
+  background-size: 100% 100%;
+  background-image: url(../images/logo.jpg);
+}
+
+.fa-sign-out-alt {
+  transform: rotate(180deg);
 }

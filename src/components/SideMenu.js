@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import {connect} from 'react-redux';
+import { logoutUser } from "../actions/auth";
 
 import { Menu, Layout } from "antd";
 
@@ -15,20 +17,26 @@ class SideMenu extends Component {
     });
   };
 
+  logOut = () => {
+    localStorage.removeItem("token");
+    this.props.dispatch(logoutUser());
+  };
+
+
   render() {
     const { onMenuSelect } = this.props;
     return (
       <Sider
         theme="light"
-        className="sider"
+        style={{background:'linear-gradient(45deg,#1890ff,#3052cc)',color:'white'}}
         trigger={null}
         collapsible
         collapsed={this.state.collapsed}
       >
-        <div style={{ paddingLeft: "30px" }} onClick={this.toggle}>
-          <i className="fas fa-bars"></i>
+        <div className="side-menu-logo" onClick={this.toggle}>
         </div>
-        <Menu mode="inline" defaultSelectedKeys={["1"]}>
+        <Menu style={{backgroundColor:'transparent',color:'white'}}
+ mode="inline" defaultSelectedKeys={["1"]}>
           <Menu.Item
             onClick={() => onMenuSelect("1")}
             key="1"
@@ -44,11 +52,11 @@ class SideMenu extends Component {
             Stats
           </Menu.Item>
           <Menu.Item
-            onClick={() => onMenuSelect("3")}
+            onClick={this.logOut}
             key="3"
-            icon={<i className="fas fa-cog"></i>}
+            icon={<i className="fas fa-sign-out-alt"></i>}
           >
-            Settings
+            Logout
           </Menu.Item>
         </Menu>
       </Sider>
@@ -56,4 +64,4 @@ class SideMenu extends Component {
   }
 }
 
-export default SideMenu;
+export default connect()(SideMenu);

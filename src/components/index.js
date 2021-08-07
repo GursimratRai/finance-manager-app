@@ -3,8 +3,7 @@ import Signup from "./Signup";
 import Home from "./Home";
 import Page404 from "./Page404";
 import SideMenu from "./SideMenu";
-import Settings from "./Settings";
-import Calender from "./Calender";
+import Calendar from "./Calendar";
 import Stats from "./Stats";
 import Transaction from "./Transaction";
 import IncomeForm from "./IncomeForm";
@@ -20,8 +19,7 @@ export {
   Home,
   Page404,
   SideMenu,
-  Settings,
-  Calender,
+  Calendar,
   Stats,
   Transaction,
   IncomeForm,

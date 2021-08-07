@@ -11,7 +11,7 @@ const StatChart = (props) => {
             title="Total Earning"
             value={Data.totalIncome}
             precision={2}
-            valueStyle={{ color: "#3f8600" }}
+            valueStyle={{ color: "#fff" }}
           />
         </Col>
         <Col span={10} className='statistic spending'>
@@ -19,7 +19,7 @@ const StatChart = (props) => {
             title="Total Spending"
             value={Data.totalExpense}
             precision={2}
-            valueStyle={{ color: "#cf1322" }}
+            valueStyle={{ color: "#fff" }}
           />
         </Col>
       </Row>
@@ -29,6 +29,7 @@ const StatChart = (props) => {
             title="Savings"
             value={Data.totalIncome - Data.totalExpense}
             precision={2}
+            valueStyle={{ color: "#fff" }}
           />
         </Col>
       </Row>

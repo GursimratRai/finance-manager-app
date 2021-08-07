@@ -86,10 +86,10 @@ const DoughnutChart = (props) => {
     <div>
       <Row style={{ padding: 5 }}>
         <Col span={12}>
-          <Pie height={200} {...IncomeConfig} />;
+          <Pie height={200} {...IncomeConfig} />
         </Col>
         <Col span={12}>
-          <Pie height={200} {...ExpenseConfig} />;
+          <Pie height={200} {...ExpenseConfig} />
         </Col>
       </Row>
     </div>

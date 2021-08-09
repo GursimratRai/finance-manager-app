@@ -65,12 +65,12 @@ const IncomeForm = (props) => {
             min="0"
             placeholder="Enter Amount"
             required
-            {...amount}
+            value={amount.value} onChange={amount.onChange} 
           />
         </div>
         <div className="modal-form-field">
           <h3>Source:</h3>
-          <input type="text" placeholder="Enter Source" required {...source} />
+          <input type="text" placeholder="Enter Source" required value={source.value} onChange={source.onChange}  />
         </div>
 
         <div className="modal-form-field">
@@ -103,7 +103,7 @@ const IncomeForm = (props) => {
         </div>
         <div className="modal-form-field description">
           <h3>Description:</h3>
-          <input type="text" placeholder="Enter Description" {...description} />
+          <input type="text" placeholder="Enter Description" value={description.value} onChange={description.onChange}  />
         </div>
         <div className="modal-form-button">
           <button type="button" onClick={onCancel}>

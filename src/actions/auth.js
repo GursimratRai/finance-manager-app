@@ -11,7 +11,7 @@ import {
 } from "./actionTypes";
 
 //function for encoding the form data
-import { getFormBody } from "../helpers/utils";
+import { getFormBody ,notify} from "../helpers/utils";
 
 //Start action for login
 export function startLogin() {
@@ -55,10 +55,16 @@ export function login(email, password) {
         if (data.success) {
           //dispatch action to save user
           localStorage.setItem('token',data.data.token);
+          //if success
           dispatch(loginSuccess(data.data.user));
+          //notified success
+          notify('success',data.message);
           return;
         }
+        //if failed
         dispatch(loginFailed(data.error));
+        //notified error
+        notify('error',data.error);
       });
   };
 }
@@ -88,7 +94,6 @@ export function signupFailed(errorMessage) {
 
 //Sending an Api Request for Creating a new account
 export function signup(name,email,password,confirmPassword) {
-  console.log('signup',name,email,password,confirmPassword);
   return (dispatch) => {
     dispatch(signupStart());
     
@@ -108,11 +113,12 @@ export function signup(name,email,password,confirmPassword) {
     .then((response) => response.json())
     .then((data) => {
       if(data.success){
-
         dispatch(signupSuccess(data.message));
+        notify('success',data.message);
         return ;
       }
       dispatch(signupFailed(data.error));
+      notify('error',data.error);
     })
   };
 }

@@ -154,6 +154,7 @@ class Calendar extends Component {
         />
         {visible && (
           <ShowTransaction
+            key={date}
             onCancel={this.onCancel}
             onSubmit={this.onSubmit}
             visible={visible}

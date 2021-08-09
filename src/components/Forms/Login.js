@@ -5,27 +5,37 @@ import { Link, Redirect } from "react-router-dom";
 //Action for logging the user in
 import { login } from "../../actions/auth";
 
+//validator
+import validator from "validator";
+
 //Css file for styling
 import "../../assets/css/Login-Signup.css";
 
 //Custom React Hook for inputing form data and handling the change
-import { useFormInput } from "../../helpers/utils";
+import { useFormInput , notify } from "../../helpers/utils";
 
 //Login Form
 const Login = (props) => {
   const email = useFormInput("");
   const password = useFormInput("");
   const dispatch = useDispatch();
-  const { error, inProgress, isLoggedIn } = props.auth;
+  const { inProgress, isLoggedIn } = props.auth;
 
   //Handling the submission of the form
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    if (email && password) {
-      dispatch(login({ email: email.value, password: password.value }));
+    if (validator.isEmail(email.value)) {
+      if (email && password) {
+        dispatch(login({ email: email.value, password: password.value }));
+      }
+    } 
+    else {
+      notify('error',"Invalid Username / Password");
     }
+    email.reset("");
+    password.reset("");
   };
-  
+
   //If user is already logged in redirect to home instead of login page
   if (isLoggedIn) {
     return <Redirect to="/home" />;
@@ -38,10 +48,15 @@ const Login = (props) => {
         <div>
           <h2>Welcome Back</h2>
         </div>
-        {error && <div className="alert error-dailog">{error}</div>}
         <div className="field">
           <i className="far fa-envelope"></i>
-          <input type="email" placeholder="Email" required {...email} />
+          <input
+            type="email"
+            placeholder="Email"
+            required
+            value={email.value}
+            onChange={email.onChange}
+          />
         </div>
         <div className="field">
           <i className="fas fa-unlock-alt"></i>
@@ -49,7 +64,8 @@ const Login = (props) => {
             type="password"
             placeholder="Password"
             required
-            {...password}
+            value={password.value}
+            onChange={password.onChange}
           />
         </div>
         <div className="form-button">

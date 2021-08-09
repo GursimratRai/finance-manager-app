@@ -2,6 +2,7 @@
   "name": "finance-manager-app",
   "version": "0.1.0",
   "private": true,
+  "author":"Gursimrat Singh Rai",
   "dependencies": {
     "@ant-design/charts": "^1.2.4",
     "@fullcalendar/daygrid": "^5.9.0",
@@ -22,6 +23,7 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "tslib": "^2.3.0",
+    "validator": "^13.6.0",
     "web-vitals": "^1.1.2"
   },
   "scripts": {

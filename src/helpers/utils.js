@@ -1,5 +1,6 @@
 import moment from "moment";
 import { useState } from "react";
+import {notification} from 'antd';
 
 //function used for encoding the form data
 export function getFormBody(params) {
@@ -26,10 +27,38 @@ export function useFormInput(initialValue) {
     setValue(e.target.value);
   }
 
+  function reset(resetValue) {
+    setValue(resetValue);
+  }
+
   return {
     value,
     onChange: handleChange,
+    reset,
   };
+}
+
+//function for notification
+export function notify(type, data) {
+  if (type === "success") {
+    notification.success({
+      message: data,
+      style: {
+        borderRadius: 5,
+        backgroundColor: "#9cda7e",
+        borderColor: "#2f6316",
+      },
+    });
+  } else {
+    notification.error({
+      message: data,
+      style: {
+        borderRadius: 5,
+        backgroundColor: "#e89795",
+        borderColor: "#880411",
+      },
+    });
+  }
 }
 
 //function for generating dates in a desired format
@@ -59,26 +88,24 @@ export function getData(type, subType, navigator, dateFormat, transactions) {
   const expensePerCatogories = {};
 
   for (let date of dates) {
-
     let ita = 0;
     let eta = 0;
-    
+
     for (let transaction of transactions) {
-    
       let type = transaction.type;
       let category = transaction.category;
       let amount = transaction.amount;
       let transactionDate = moment(transaction.date).format(dateFormat);
-    
+
       if (type === "Income" && transactionDate === date) {
-    
         ita += transaction.amount;
         totalIncome += transaction.amount;
-    
+
         if (!incomePerCatogories[category]) {
           incomePerCatogories[category] = amount;
         } else {
-          incomePerCatogories[category] = incomePerCatogories[category] + amount;
+          incomePerCatogories[category] =
+            incomePerCatogories[category] + amount;
         }
       }
       if (type === "Expense" && transactionDate === date) {
@@ -87,7 +114,8 @@ export function getData(type, subType, navigator, dateFormat, transactions) {
         if (!expensePerCatogories[category]) {
           expensePerCatogories[category] = amount;
         } else {
-          expensePerCatogories[category] = expensePerCatogories[category] + amount;
+          expensePerCatogories[category] =
+            expensePerCatogories[category] + amount;
         }
       }
     }

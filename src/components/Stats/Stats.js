@@ -48,7 +48,7 @@ const Stats = (props) => {
   };
 
   return (
-    <div style={{ background:'white',padding: 10 }}>
+    <div style={{height:'100vh',background:'white',padding: 10 }}>
       <Row style={{ padding: 5 }}>
         <Col span={1}>
           <Button
@@ -88,7 +88,7 @@ const Stats = (props) => {
           <BarChart Data={Data} />
         </Col>
       </Row>
-      <Row style={{marginTop:20}}>
+      <Row style={{marginTop:60}}>
         <Col span={10}>
           <StatChart Data={Data} />
         </Col>

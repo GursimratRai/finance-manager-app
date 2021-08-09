@@ -142,7 +142,7 @@ class Calendar extends Component {
         <FullCalendar
           plugins={[dayGridPlugin, interactionPlugin]}
           initialView="dayGridMonth"
-          height={"95vh"}
+          height={"96vh"}
           headerToolbar={{
             left: "prev",
             center: "title",

@@ -7,7 +7,7 @@ const BarChart = (props) => {
 
   //configuration for the bar chart
 const config = {
-  height:230,
+  height:300,
   data: props.Data.BarData,
   isGroup: true,
   xField: 'x',

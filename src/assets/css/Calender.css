@@ -1,4 +1,5 @@
 body{
+  font-size:3rem;
   line-height: 1 !important;
 }
 
@@ -21,8 +22,8 @@ border: 0px !important;
 }
 
 .fc .fc-daygrid-day-frame {
-width: 8rem;
-height: 4rem;
+width: 10rem;
+height: 5rem;
 overflow: scroll;
 margin: 0px 4px;
 border-top: 2px solid #f0f0f0;
@@ -35,5 +36,9 @@ border-top: 2px solid #f0f0f0;
 background-color: whitesmoke;
 }
 .fc .fc-daygrid-day.fc-day-today {
-background-color: #dbedfd;
+background-color: white;
+}
+
+.fc .fc-daygrid-day.fc-day-today .fc-daygrid-day-frame.fc-scrollgrid-sync-inner{
+  background-color: #dbedfd;
 }

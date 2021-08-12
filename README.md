@@ -1,6 +1,50 @@
-# Getting Started with Create React App
+# Finance Manager 
+
+Application for compile and analyze daily financial data provided for optimizing the use of assets / money.
+
+Enchanced site functionality by providing advanced visualization through pie charts and other graphs to enable easy tracking of spending habits.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## 🔗 Live link
+
+This application is available online [here](https://finance-manager-app-g.netlify.app/)
+
+## Tech Stack
+
+**Client:**  React , Redux , React Hooks 
+
+**Server:** Node , Express
+
+**Database:** MongoDB
+
+
+## API Reference
+
+#### Base Url
+
+```http
+  https://finance-manager-api-g.herokuapp.com/
+```
+
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `token` | `string` | **Required**. Your Access-token |
+
+#### Get item
+
+```http
+  GET /api/v1
+```
+
+| Reference | Method     | Purpose                       |
+| :-------- | :------- | :-------------------------------- |
+| `/users/login`      | `POST` | Returns JSON contains status and message |
+| `/users/signup`      | `POST` | Returns JSON contains access-token of the user |
+| `/transaction/create`      | `POST` | Returns JSON contains status , message and data of the transaction |
+| `/transaction/delete`      | `POST` | Returns JSON contains status and message |
+| `/transaction/update?id={id}`      | `POST` | Returns JSON contains updated data of the transaction |
+| `/transaction/transactions`      | `GET` | Returns JSON Array of all transactions of given user.|
 
 ## Available Scripts
 
